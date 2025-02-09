@@ -1,7 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 
-const timetable = [
+type TimetableRow = {
+  time: string;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+};
+
+const timetable: TimetableRow[] = [
   {
     time: "09:00 AM",
     monday: "Mathematics",
@@ -29,7 +38,7 @@ const timetable = [
 ]
 
 export function Timetable() {
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
   return (
     <Card>
@@ -41,25 +50,27 @@ export function Timetable() {
           <TableHeader>
             <TableRow>
               <TableHead>Time</TableHead>
-              {days.map((day) => (
-                <TableHead key={day}>{day}</TableHead>
-              ))}
+              <TableHead>Monday</TableHead>
+              <TableHead>Tuesday</TableHead>
+              <TableHead>Wednesday</TableHead>
+              <TableHead>Thursday</TableHead>
+              <TableHead>Friday</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {timetable.map((row, index) => (
               <TableRow key={index}>
                 <TableCell className="font-medium">{row.time}</TableCell>
-                <TableCell>{row[days[0].toLowerCase()]}</TableCell>
-                <TableCell>{row[days[1].toLowerCase()]}</TableCell>
-                <TableCell>{row[days[2].toLowerCase()]}</TableCell>
-                <TableCell>{row[days[3].toLowerCase()]}</TableCell>
-                <TableCell>{row[days[4].toLowerCase()]}</TableCell>
+                <TableCell>{row.monday}</TableCell>
+                <TableCell>{row.tuesday}</TableCell>
+                <TableCell>{row.wednesday}</TableCell>
+                <TableCell>{row.thursday}</TableCell>
+                <TableCell>{row.friday}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </CardContent>
     </Card>
-  )
+  );
 }

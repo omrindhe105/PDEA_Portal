@@ -18,8 +18,7 @@ const handler = NextAuth({
         await prisma.user.create({
           data:{
             email: params.user.email,
-            name: params.user.name ?? "Default Name",
-            password: "password", 
+            name: params.user.name ?? "Default Name"
           }
       })
       
