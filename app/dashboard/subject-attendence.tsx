@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 
-const calculateAttendance = (attended: number, total: number) => {
+export const calculateAttendance = (attended: number, total: number) => {
   return Math.round((attended / total) * 100)
 }
 
 export const subjects = [
   { 
     name: "TOC", 
-    attended: 13, 
+    attended: 15, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -16,7 +16,7 @@ export const subjects = [
   },
   { 
     name: "BCN", 
-    attended: 17, 
+    attended:19, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -24,7 +24,7 @@ export const subjects = [
   },
   { 
     name: "Internship", 
-    attended: 10, 
+    attended: 19, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -32,7 +32,7 @@ export const subjects = [
   },
   { 
     name: "CyberSecurity", 
-    attended: 10, 
+    attended: 15, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -40,7 +40,7 @@ export const subjects = [
   },
   { 
     name: "WAD", 
-    attended: 10, 
+    attended: 15, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)

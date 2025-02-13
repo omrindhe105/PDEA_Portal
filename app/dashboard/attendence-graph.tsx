@@ -10,7 +10,17 @@ import {
   ChartTooltip, 
   ChartTooltipContent 
 } from "./ui/chart";
-import { subjects } from "./subject-attendence";
+import { subjects, calculateAttendance } from "./subject-attendence";
+import { HfInference } from "@huggingface/inference";
+
+// Define Subject type with totalLectures
+type Subject = {
+  name: string;
+  attendance: number;
+  totalLectures?: number;
+  attended?: number;
+  total?: number;
+}
 
 // Convert subjects to pie chart format with original color scheme
 const subjectAttendance = subjects.map(subject => ({
@@ -39,6 +49,7 @@ const chartConfig = {
 
 export function AttendanceGraph() {
   const [loading, setLoading] = React.useState(false);
+  const [aiResult, setAiResult] = React.useState("");
   const [result, setResult] = React.useState("");
 
   // Calculate total and average attendance
@@ -51,32 +62,117 @@ export function AttendanceGraph() {
     if (attendance < 75) return "yellow";
     return "green";
   };
-  
 
-  // // Fetch AI-generated lecture recovery plan
-  // const fetchAttendanceAdvice = async () => {
-  //   setLoading(true);
-  //   setResult(""); // Clear previous result
+  // Hugging Face AI Inference with more robust configuration
+  const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY);
 
-  //   try {
-  //     const chatRes = await fetch("/api/gpt", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ attendance: totalAttendance }),
-  //     });
+  // Optional: Set global timeout if supported
+  const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), 60000); // 60 seconds timeout
+    
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal
+      });
+      clearTimeout(id);
+      return response;
+    } catch (error) {
+      clearTimeout(id);
+      throw error;
+    }
+  };
 
-  //     const data = await chatRes.json();
-  //     setResult(data.message || "Error processing request.");
-  //   } catch (error) {
-  //     console.error("Error fetching AI data:", error);
-  //     setResult("Something went wrong.");
-  //   }
+  const calculateLectureRequirements = async () => {
+    setLoading(true);
+    setAiResult("");
 
-  //   setLoading(false);
-  // };
+    try {
+      // Validate API key
+      const apiKey = process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY;
+      if (!apiKey) {
+        console.error("Hugging Face API key is missing");
+        setAiResult("Error: Missing Hugging Face API key");
+        return;
+      }
+
+      // Detailed attendance calculation
+      const lecturesToAttend = subjects.map((subject: Subject) => {
+        const currentAttendedLectures = subject.attended || 0; 
+        const totalLectures = subject.total || 0; 
+        const requiredAttendance = 75; // Standard minimum attendance
+
+        // Prevent division by zero and ensure correct percentage calculation
+        const currentAttendance = totalLectures > 0 
+          ? Math.round((currentAttendedLectures / totalLectures) * 100) 
+          : 0;
+        
+        const requiredLectures = totalLectures > 0
+          ? Math.max(0, Math.ceil(
+              (requiredAttendance * totalLectures / 100) - currentAttendedLectures
+            ))
+          : 0;
+
+        return {
+          subject: subject.name,
+          currentAttendance,
+          requiredLectures
+        };
+      });
+
+      // Calculate average attendance
+      const averageAttendance = lecturesToAttend.length > 0
+        ? lecturesToAttend.reduce((sum, item) => sum + item.currentAttendance, 0) / lecturesToAttend.length
+        : 0;
+
+      // Prepare prompt based on average attendance
+      const subjectRecommendations = lecturesToAttend.map((item, index) => 
+        `${index + 1}. ${item.subject}: ${item.requiredLectures} more lectures needed`
+      ).join('\n');
+
+      const prompt = averageAttendance > 75 
+        ? `display this message only "Your overall attendance is excellent at ${averageAttendance.toFixed(2)}%. 
+           Keep up the great work! Consistent attendance is key to academic success".`
+        : `Detailed Attendance Analysis:
+          Overall Attendance: ${averageAttendance.toFixed(2)}%
+
+          Recommendations for each subject to reach 75% attendance:
+          ${subjectRecommendations}
+
+          Focus on these subjects to improve your overall attendance.
+          make sure to only reply with the 5 points specified about recommendations in the specified format only , nothing else`;
+
+      console.log("Prompt for AI:", prompt); // Log the prompt for debugging
+
+      try {
+        const aiResponse = await hf.chatCompletion({
+          model: 'google/gemma-2-2b-it',
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 250
+        });
+
+        console.log("Full AI Response:", aiResponse); // Log full response
+
+        setAiResult(aiResponse.choices[0].message.content || "Unable to generate analysis.");
+      } catch (aiError) {
+        console.error("Detailed AI Error:", aiError);
+        // Check if it's a network error or authentication issue
+        if (aiError instanceof Error) {
+          setAiResult(`AI Error: ${aiError.message}`);
+        } else {
+          setAiResult("Unexpected error in AI analysis");
+        }
+      }
+    } catch (error) {
+      console.error("Comprehensive Error:", error);
+      setAiResult("Error generating lecture attendance analysis.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    
     <Card className="flex flex-col relative">
       <CardHeader className="flex-row items-center justify-between space-y-0">
         <div>
@@ -84,8 +180,17 @@ export function AttendanceGraph() {
           <CardDescription>Semester Performance</CardDescription>
         </div>
         <div className="rounded-xl shadow-[0_0_10px_2px_rgba(138,43,226,0.4)]">
-          <Button variant={"outline"} className="w-25 h-25 p-2">
-            <Bot className="!size-10 text-[#B080FF] drop-shadow-[0_0_6px_rgba(186,104,255,0.7)]"/>
+          <Button 
+            variant={"outline"} 
+            className="w-25 h-25 p-2"
+            onClick={calculateLectureRequirements}
+            disabled={loading}
+          >
+            {loading ? (
+              <Loader className="!size-10 text-[#B080FF] animate-spin"/>
+            ) : (
+              <Bot className="!size-10 text-[#B080FF] drop-shadow-[0_0_6px_rgba(186,104,255,0.7)]"/>
+            )}
           </Button>
         </div>
         
@@ -132,6 +237,12 @@ export function AttendanceGraph() {
           Showing overall attendance across subjects
         </div>
       </CardFooter>
+
+      {aiResult && (
+        <div className="mt-4 p-3 bg-muted rounded-lg">
+          <p className="text-sm">{aiResult}</p>
+        </div>
+      )}
     </Card>
   );
 }
