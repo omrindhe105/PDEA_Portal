@@ -24,7 +24,7 @@ export const subjects = [
   },
   { 
     name: "Internship", 
-    attended: 19, 
+    attended: 9, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -32,7 +32,7 @@ export const subjects = [
   },
   { 
     name: "CyberSecurity", 
-    attended: 15, 
+    attended: 5, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)
@@ -40,7 +40,7 @@ export const subjects = [
   },
   { 
     name: "WAD", 
-    attended: 15, 
+    attended: 10, 
     total: 20,
     get attendance() {
       return calculateAttendance(this.attended, this.total)

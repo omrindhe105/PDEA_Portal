@@ -132,18 +132,24 @@ export function AttendanceGraph() {
       ).join('\n');
 
       const prompt = averageAttendance > 75 
-        ? `display this message only "Your overall attendance is excellent at ${averageAttendance.toFixed(2)}%. 
-           Keep up the great work! Consistent attendance is key to academic success".`
-        : `Detailed Attendance Analysis:
-          Overall Attendance: ${averageAttendance.toFixed(2)}%
+    ? `Output only this exact message without adding anything else:
+       "Your overall attendance is excellent at ${averageAttendance.toFixed(2)}%. 
+        Keep up the great work! Consistent attendance is key to academic success." 
+       Include one short motivational quote on consistency. 
+       Do not bold any words, do not add any extra text, and do not respond like a chatbot.`
+    : `Output only this exact format without adding anything else:
+       Detailed Attendance Analysis:
+       Overall Attendance: ${averageAttendance.toFixed(2)}%
 
-          Recommendations for each subject to reach 75% attendance:
-          ${subjectRecommendations}
+       Recommendations for each subject to reach 75% attendance:
+       ${subjectRecommendations}
+       
 
-          Focus on these subjects to improve your overall attendance.
-          make sure to only reply with the 5 points specified about recommendations in the specified format only , nothing else`;
+       .Focus on these subjects to improve your overall attendance.
+       Do not bold any words, do not add extra text, and do not respond like a chatbot.
+       
+       Important: Use the provided subject data dynamically. Do not repeat or reference 'subjectRecommendations' literally. Replace it with the actual subject names, required lectures, and comments from the provided data. Join two sentences with a period and a space.`
 
-      console.log("Prompt for AI:", prompt); // Log the prompt for debugging
 
       try {
         const aiResponse = await hf.chatCompletion({
@@ -151,8 +157,6 @@ export function AttendanceGraph() {
           messages: [{ role: "user", content: prompt }],
           max_tokens: 250
         });
-
-        console.log("Full AI Response:", aiResponse); // Log full response
 
         setAiResult(aiResponse.choices[0].message.content || "Unable to generate analysis.");
       } catch (aiError) {
