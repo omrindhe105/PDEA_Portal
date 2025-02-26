@@ -35,10 +35,11 @@ export default function RootLayout({
       <body
         className={geistSans.className}
       >
-        <Analytics />
+       
         <Providers>
          {children}
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
