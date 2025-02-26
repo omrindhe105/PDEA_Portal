@@ -64,7 +64,7 @@ export function AttendanceGraph() {
   };
 
   // Hugging Face AI Inference with more robust configuration
-  const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY);
+  const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY);
 
   // Optional: Set global timeout if supported
   const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
