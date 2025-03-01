@@ -63,39 +63,11 @@ export function AttendanceGraph() {
     return "green";
   };
 
-  // Hugging Face AI Inference with more robust configuration
-  const hf = new HfInference(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY);
-  // Optional: Set global timeout if supported
-  const fetchWithTimeout = async (url: string, options: RequestInit = {}) => {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), 60000); // 60 seconds timeout
-    
-    try {
-      const response = await fetch(url, {
-        ...options,
-        signal: controller.signal
-      });
-      clearTimeout(id);
-      return response;
-    } catch (error) {
-      clearTimeout(id);
-      throw error;
-    }
-  };
-
   const calculateLectureRequirements = async () => {
     setLoading(true);
     setAiResult("");
 
     try {
-      // Validate API key
-      const apiKey = process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY || process.env.HUGGINGFACE_API_KEY;
-      if (!apiKey) {
-        console.error("Hugging Face API key is missing");
-        setAiResult("Error: Missing Hugging Face API key");
-        return;
-      }
-
       // Detailed attendance calculation
       const lecturesToAttend = subjects.map((subject: Subject) => {
         const currentAttendedLectures = subject.attended || 0; 
@@ -125,47 +97,62 @@ export function AttendanceGraph() {
         ? lecturesToAttend.reduce((sum, item) => sum + item.currentAttendance, 0) / lecturesToAttend.length
         : 0;
 
-      // Prepare prompt based on average attendance
+      // Prepare subject recommendations
       const subjectRecommendations = lecturesToAttend.map((item, index) => 
         `${index + 1}. ${item.subject}: ${item.requiredLectures} more lectures needed`
       ).join('\n');
 
+      // Prepare prompt based on average attendance
       const prompt = averageAttendance > 75 
-    ? `Output only this exact message without adding anything else:
-       "Your overall attendance is excellent at ${averageAttendance.toFixed(2)}%. 
-        Keep up the great work! Consistent attendance is key to academic success." 
-       Include one short motivational quote on consistency. 
-       Do not bold any words, do not add any extra text, and do not respond like a chatbot.`
-    : `Output only this exact format without adding anything else:
-       Detailed Attendance Analysis:
-       Overall Attendance: ${averageAttendance.toFixed(2)}%
+        ? `Output only this exact message without adding anything else:
+           "Your overall attendance is excellent at ${averageAttendance.toFixed(2)}%. 
+            Keep up the great work! Consistent attendance is key to academic success." 
+           Include one short motivational quote on consistency. 
+           Do not bold any words, do not add any extra text, and do not respond like a chatbot.`
+        : `Output only this exact format without adding anything else:
+           Detailed Attendance Analysis:
+           Overall Attendance: ${averageAttendance.toFixed(2)}%
 
-       Recommendations for each subject to reach 75% attendance:
-       ${subjectRecommendations}
-       
-
-       .Focus on these subjects to improve your overall attendance.
-       Do not bold any words, do not add extra text, and do not respond like a chatbot.
-       
-       Important: Use the provided subject data dynamically. Do not repeat or reference 'subjectRecommendations' literally. Replace it with the actual subject names, required lectures, and comments from the provided data. Join two sentences with a period and a space.`
-
+           Recommendations for each subject to reach 75% attendance:
+           ${subjectRecommendations}
+           
+           Focus on these subjects to improve your overall attendance.
+           Do not bold any words, do not add extra text, and do not respond like a chatbot.`;
 
       try {
-        const aiResponse = await hf.chatCompletion({
-          model: 'google/gemma-2-2b-it',
-          messages: [{ role: "user", content: prompt }],
-          max_tokens: 250
+        const response = await fetch('/api/huggingface', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            messages: [{ role: "user", content: prompt }],
+            max_tokens: 250
+          })
         });
 
-        setAiResult(aiResponse.choices[0].message.content || "Unable to generate analysis.");
+        // Log the full response for debugging
+        console.log('Full API Response:', response);
+
+        if (!response.ok) {
+          // Try to get more details about the error
+          const errorBody = await response.text();
+          console.error('API Error Response Body:', errorBody);
+          throw new Error(`Failed to fetch AI response. Status: ${response.status}, Body: ${errorBody}`);
+        }
+
+        const data = await response.json();
+        console.log('Parsed Response Data:', data);
+        
+        // Safely access the message content
+        const aiMessage = data.choices && data.choices[0] && data.choices[0].message 
+          ? data.choices[0].message.content 
+          : "Unable to generate analysis.";
+        
+        setAiResult(aiMessage);
       } catch (aiError) {
         console.error("Detailed AI Error:", aiError);
-        // Check if it's a network error or authentication issue
-        if (aiError instanceof Error) {
-          setAiResult(`AI Error: ${aiError.message}`);
-        } else {
-          setAiResult("Unexpected error in AI analysis");
-        }
+        setAiResult(aiError instanceof Error ? `AI Error: ${aiError.message}` : "Unexpected error in AI analysis");
       }
     } catch (error) {
       console.error("Comprehensive Error:", error);
