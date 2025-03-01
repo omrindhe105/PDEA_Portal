@@ -3,11 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { HfInference } from "@huggingface/inference";
 
 export async function POST(request: NextRequest) {
-  // Log environment variables for debugging
-  console.log('Environment Variables:', {
-    HUGGING_FACE_API_KEY: process.env.HUGGING_FACE_API_KEY ? 'SET' : 'NOT SET'
-  });
-
   // Securely retrieve API key from environment variables
   const apiKey = process.env.HUGGING_FACE_API_KEY;
 
