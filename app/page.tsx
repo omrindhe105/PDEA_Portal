@@ -8,12 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import Image from 'next/image';
 import {Button} from "@/components/ui/button";
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center overflow-hidden z-10 text-white">
-      {/* <h1 className="text-3xl font-bold mb-8">Login Portal</h1> */}
       <Card className="h-80 flex flex-col justify-center align-center p-3 text-center ">
+        <Image src="/Untitled (7).png" alt="logo" width={100} height={100} />
         <CardTitle className="align-center text-3xl font-bold mb-8">Login Portal</CardTitle>
         <CardDescription>Kindly Select Your Role To Login!</CardDescription>
       <div className="flex space-x-6 mt-10">
