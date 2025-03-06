@@ -10,35 +10,37 @@ import {
 } from "@/components/ui/card"
 import Image from 'next/image';
 import {Button} from "@/components/ui/button";
+
 export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center overflow-hidden z-10 text-white">
-      <Card className="h-80 flex flex-col justify-center align-center p-3 text-center ">
-        <Image src="/Untitled (7).png" alt="logo" width={100} height={100} />
-        <CardTitle className="align-center text-3xl font-bold mb-8">Login Portal</CardTitle>
-        <CardDescription>Kindly Select Your Role To Login!</CardDescription>
-      <div className="flex space-x-6 mt-10">
-      <Button asChild>
-  <Link href="./student-login">
-    Login as Student
-  </Link>
-</Button>
-<Button asChild>
-  <Link href="/admin-login">
-    Login as Admin
-  </Link>
-</Button>
-<Button asChild>
-  <Link href="/teacher-login">
-    Login as Teacher
-  </Link>
-</Button>
+      <div className="h-70 flex justify-center items-center p-4 text-center bg-black border border-white rounded-lg">
+        <div className="flex flex-col items-center">
+          <Image src="/Untitled (7).png" alt="logo" width={250} height={250} />
+          
+        </div>
         
+        <div className="space-x-4">
+        <h1 className="p-10">Select Your Role To Login!</h1>
+          
+          <Button asChild>
+            <Link href="./student-login">
+              Login as Student
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/admin-login">
+              Login as Admin
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/teacher-login">
+              Login as Teacher
+            </Link>
+          </Button>
+        </div>
       </div>
-      
-      <BackgroundBeams/>
-      </Card>
+      <BackgroundBeams />
     </div>
-    
   );
 }
