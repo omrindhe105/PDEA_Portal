@@ -6,8 +6,10 @@ export default function Home() {
     <div>
       <Redirect/>
     <div className="min-h-screen flex items-center justify-center overflow-hidden z-10 bg-black">
+      
     <LoginForm/>
     </div>
+    
     <BackgroundBeams/>
     </div>
   );

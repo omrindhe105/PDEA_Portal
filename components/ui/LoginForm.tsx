@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { signIn, useSession } from "next-auth/react"
 import router, { Router, useRouter } from "next/router"
 import { useEffect } from "react"
+import Link from "next/link"
 export default function SignupFormDemo() {
   const session=useSession();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +48,7 @@ Login to your account to view your profile and latest notifications</p>
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="text-blue-500"><Link href="/teacher" >Click For Admin/Teacher Login!</Link></div>
       </form>
     </div>
   )
