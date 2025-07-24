@@ -1,5 +1,3 @@
-import { BackgroundBeams } from "@/components/ui/background-gradient-animation";
-
 export default function teacher(){
     return(
             <><label className="input validator">
@@ -8,6 +6,7 @@ export default function teacher(){
         </label><p className="validator-hint">
                 Must be 3 to 30 characters
                 <br />containing only letters, numbers or dash
-            </p><BackgroundBeams /></>
+            </p>
+        </>
     )
 }

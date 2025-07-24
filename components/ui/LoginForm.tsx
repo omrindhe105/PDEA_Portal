@@ -13,8 +13,8 @@ export default function SignupFormDemo() {
     e.preventDefault()
   }
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black dark:bg-black z-10 border">
-      <h2 className="z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">Welcome to PDEA's Portal</h2>
+    <div className="w-full rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black dark:bg-black z-10 border border-violet-500">
+      <h2 className="z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-500 to-violet-500 text-center font-poppins font-bold">Welcome to PDEA's Portal</h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
 Login to your account to view your profile and latest notifications</p>
 
