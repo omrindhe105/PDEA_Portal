@@ -4,16 +4,18 @@ require('dotenv').config();
 const dbConnection = require('./config/db');
 // const studentRegistration = require("./controllers/studentController");
 const studentRoutes = require("./routes/studentRoutes");
-
-// Set the views directory (where index.ejs is located)
+const adminRoutes = require("./routes/adminRoute");
+const teacherRoutes = require("./routes/teacherRoutes");
 
 
 app.use(express.urlencoded({extended : true}) )   // handle form data
 app.use(express.json());
 dbConnection()
 
-app.use("/student",studentRoutes);
 
+app.use("/admin", adminRoutes)
+app.use("/teacher",teacherRoutes)
+app.use("/student",studentRoutes);
 
 const PORT = process.env.PORT ;
 app.listen(PORT, () => {
