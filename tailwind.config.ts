@@ -86,6 +86,7 @@ export default {
 			sm: 'calc(var(--radius) - 4px)'
 		},
   		fontFamily: {
+			figtree: ['var(--font-figtree)'],
   			sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', "Helvetica Neue", 'Arial', "Noto Sans", 'sans-serif'],
   		},
 		  keyframes: {

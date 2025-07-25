@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono,Figtree  } from "next/font/google";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./provider";
@@ -20,6 +20,8 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const figtree = Figtree({ subsets: ['latin'], variable: '--font-figtree' })
+
 export const metadata: Metadata = {
   title: "PDEA's College Of Engineering",
   description: "Official Portal Of PDEA's College Of Engineering",
@@ -33,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={geistSans.className}
+        className="font-figtree"
       >
        
         <Providers>
