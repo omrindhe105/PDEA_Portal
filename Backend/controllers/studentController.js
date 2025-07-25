@@ -70,6 +70,14 @@ const studentLogin = async (req, res) => {
     })
 
     const token = jwt.sign({email: student.email}, process.env.JWT_SECRET, {expiresIn: '1h'});
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+    });
+
+     // Send response with student details
+     console.log("Login successful");
     res.status(200).json({
         message: "Login successful",
         token: token,
@@ -82,4 +90,13 @@ const studentLogin = async (req, res) => {
     // res.send("Login successful");
 }
 
-module.exports ={studentRegistration, studentLogin}; ;
+const studentLogout = (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict"
+    });
+    res.status(200).json({ message: "student logged out successfully" });
+};
+
+module.exports ={studentRegistration, studentLogin , studentLogout}; ;

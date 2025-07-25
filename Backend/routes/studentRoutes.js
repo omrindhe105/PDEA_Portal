@@ -1,12 +1,10 @@
 const express = require('express');
 const route = express.Router();
 
-const { studentRegistration, studentLogin } = require('../controllers/studentController');
+const { studentRegistration, studentLogin ,studentLogout } = require('../controllers/studentController');
 
 route.post("/studentRegistration", studentRegistration);
 route.post("/studentLogin", studentLogin);
-route.get("/", (req, res) => {
-    res.send("Welcome to Student Portal");
-});
+route.post("/logout", studentLogout);
 
 module.exports = route;
