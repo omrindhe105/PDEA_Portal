@@ -49,7 +49,7 @@ Login to your account to view your Profile and Latest Notifications</p>
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-        <div className="text-center text-blue-500"><Link href="/teacher" >Click Here For Admin/Teacher Login!</Link></div>
+        <div className="text-center text-blue-400 font-bold"><Link href="/teacher" >Click Here For Admin/Teacher Login!</Link></div>
       </form>
     </div>
   )
