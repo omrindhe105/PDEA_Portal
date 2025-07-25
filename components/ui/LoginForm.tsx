@@ -13,13 +13,13 @@ export default function SignupFormDemo() {
     e.preventDefault()
   }
   return (
-    <div className="w-full rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black dark:bg-black z-10 border border-violet-500">
-      <h2 className="z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-r from-violet-600 via-indigo-500 to-violet-500 text-center font-poppins font-bold">Welcome to PDEA's Portal</h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+    <div className="w-full rounded-none md:rounded-2xl flex flex-col items-center md:p-8 shadow-input z-10 ">
+      <h2 className="z-10 text-lg md:text-3xl text-white text-center font-poppins font-bold">Welcome to PDEA's Portal</h2>
+      <p className="text-center text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
 Login to your account to view your profile and latest notifications</p>
 
-      <form className="my-8" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+      <form className="my-10" onSubmit={handleSubmit}>
+        <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
             <Input id="firstname" placeholder="Tyler" type="text" />
