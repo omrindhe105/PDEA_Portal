@@ -72,7 +72,7 @@ export default function Home() {
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
 
               <input
-                className="bg-[#2e2d31] text-lg text-white h-10 rounded-lg cursor-pointer hover:bg-purple-700 transition"
+                className="bg-[#2e2d31] text-lg text-white h-10 rounded-lg cursor-pointer hover:bg-black transition"
                 type="submit"
               />
                <div className="text-center text-blue-400 font-bold"><Link href="/" >Click Here For Student Login!</Link></div>
