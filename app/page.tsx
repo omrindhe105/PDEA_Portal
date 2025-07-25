@@ -1,26 +1,38 @@
-// import { BackgroundBeams } from "@/components/ui/background-beams-with-collision";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import LoginForm from "@/components/ui/LoginForm";
 import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
+import LightRays from "@/components/ui/lightraysbg";
 export default function Home() {
   return (
-    <BackgroundBeamsWithCollision>
-    <div className="w-screen h-screen inset-0 bg-gradient-to-t from-[#159957]  to-[#1869bb]  flex justify-center items-center align-middle">
-    <div className="w-3/4 flex  p-5 h-4/5 align-middle items-center rounded-3xl z-10  bg-[#37464771] overflow-hidden">
-        <div className="w-1/2 hidden md:flex overflow-hidden rounded-3xl items-center justify-center h-full">
-          <ImageGallery/>
+    <main className="relative w-full h-screen overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#00ffff"
+          raysSpeed={1.5}
+          lightSpread={2.5}
+          rayLength={2}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.09}
+        />
+      </div>
+
+      <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <div className="w-3/4 h-4/5 flex p-5 rounded-3xl bg-[#699fa20d] backdrop-blur-md overflow-hidden">
+          <div className="w-1/2 hidden md:flex overflow-hidden rounded-3xl items-center justify-center h-full">
+            <ImageGallery/>
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col">
+            <Redirect/>
+            <div className="flex-1 flex items-center justify-center">
+              <LoginForm/>
+            </div>
+            </div>
+          </div>
         </div>
-        <div className="w-full md:w-1/2">
-          <Redirect/>
-        <div className=" flex items-center align-middle justify-center overflow-hidden z-10">
-          <LoginForm/>
-        </div>
-        </div>
-        </div>
-    </div>
-    </BackgroundBeamsWithCollision>
-    
+    </main>
   );
 }
 

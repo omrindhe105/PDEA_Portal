@@ -1,10 +1,7 @@
 "use client";
-// import { BackgroundBeams } from "@/components/ui/background-beams-with-collision";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import LoginForm from "@/components/ui/LoginForm";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
-// import { LabelInputContainer } from "@/components/ui/label-input-container";
+import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Redirect } from "@/components/ui/Redirect";
@@ -15,9 +12,14 @@ export default function Home() {
   const onSubmit = (data: any) => console.log(data);
   console.log(errors);
   return (
-    <BackgroundBeamsWithCollision>
-    <div className="w-screen h-screen inset-0 bg-gradient-to-t from-[#159957]  to-[#1869bb]  flex justify-center items-center align-middle">
-    <div className="w-3/4 z-20 flex p-5 h-4/5 align-middle items-center rounded-3xl bg-[#37464771] overflow-hidden">
+    <div className="w-screen relative h-screen flex justify-center items-center align-middle">
+      <Aurora
+  colorStops={["#76ff67", "#B19EEF", "#5227FF"]}
+  blend={1}
+  amplitude={1.5}
+  speed={0.5}
+/>
+    <div className="font-figtree absolute w-3/4 z-20 backdrop-blur-md flex p-5 h-4/5 align-middle items-center rounded-3xl bg-[#6a69691e] overflow-hidden">
         <div className="w-1/2 hidden md:flex overflow-hidden rounded-3xl items-center justify-center h-full">
           <ImageGallery/>
         </div>
@@ -25,14 +27,13 @@ export default function Home() {
           <Redirect/>
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
             <form 
-              className="flex flex-col backdrop-blur-md gap-3 py-5 rounded-2xl "
+              className="flex flex-col gap-3 py-5 rounded-2xl "
               onSubmit={handleSubmit(onSubmit)}
             >
-              <p className="text-white text-center font-bold text-2xl">
+              <p className="text-white text-center text-2xl">
                 Login/Register For Teacher and Admin
               </p>
-
-              <div className="dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
+              <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
 
               <LabelInputContainer>
                 <Label htmlFor="firstname">First name</Label>
@@ -75,13 +76,14 @@ export default function Home() {
                 className="bg-[#2e2d31] text-lg text-white h-10 rounded-lg cursor-pointer hover:bg-black transition"
                 type="submit"
               />
-               <div className="text-center text-blue-400 font-bold"><Link href="/" >Click Here For Student Login!</Link></div>
+        <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/" >Click Here For Student Login!</Link></div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    </BackgroundBeamsWithCollision>
+
+    // </BackgroundBeamsWithCollision>
   );
 }
 const LabelInputContainer = ({
