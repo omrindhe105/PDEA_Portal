@@ -15,10 +15,11 @@ export default function SignupFormDemo() {
   return (
     <div className="w-full rounded-none md:rounded-2xl flex flex-col items-center md:p-8 shadow-input z-10 ">
       <h2 className="z-10 text-lg md:text-3xl text-white text-center font-poppins font-bold">Welcome to PDEA's Portal</h2>
-      <p className="text-center text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
+      <p className="text-center mb-10 text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
 Login to your account to view your profile and latest notifications</p>
 
-      <form className="my-10" onSubmit={handleSubmit}>
+      <form className="" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
@@ -48,7 +49,7 @@ Login to your account to view your profile and latest notifications</p>
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-        <div className="text-blue-500"><Link href="/teacher" >Click For Admin/Teacher Login!</Link></div>
+        <div className="text-center text-blue-500"><Link href="/teacher" >Click For Admin/Teacher Login!</Link></div>
       </form>
     </div>
   )
