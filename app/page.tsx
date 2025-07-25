@@ -8,10 +8,10 @@ export default function Home() {
     <BackgroundBeamsWithCollision>
     <div className="w-screen h-screen inset-0 bg-gradient-to-b from-[#141e30]  to-[#243b55]  flex justify-center items-center align-middle">
     <div className="w-3/4 flex  p-5 h-4/5 align-middle items-center rounded-3xl z-10  bg-[#2C2638] overflow-hidden">
-        <div className="w-1/2 overflow-hidden rounded-3xl flex items-center justify-center h-full">
+        <div className="w-1/2 hidden md:flex overflow-hidden rounded-3xl items-center justify-center h-full">
           <ImageGallery/>
         </div>
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <Redirect/>
         <div className=" flex items-center align-middle justify-center overflow-hidden z-10">
           <LoginForm/>
