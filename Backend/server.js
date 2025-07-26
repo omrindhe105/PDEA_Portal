@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
-require('dotenv').config();
-const dbConnection = require('./config/db');
+// const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const dbConncction = require('./config/db');
+
+
 // const studentRegistration = require("./controllers/studentController");
 const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoute");
 const teacherRoutes = require("./routes/teacherRoutes");
 
-
+app.use(cookieParser());
 app.use(express.urlencoded({extended : true}) )   // handle form data
 app.use(express.json());
-dbConnection()
+ dbConncction()
 
 
 app.use("/admin", adminRoutes)
