@@ -48,7 +48,7 @@ Enter Your Credentials to view your Profile and Latest Notifications</p>
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
-        <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/teacher" >Click Here For Admin/Teacher Login!</Link></div>
+        <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/teacher/login" >Click Here For Admin/Teacher Login!</Link></div>
       </form>
     </div>
   )
