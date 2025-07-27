@@ -7,12 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
-import { FaArrowRightLong } from "react-icons/fa6";
+import * as React from "react"
+import { ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data: any) => console.log(data);
   console.log(errors);
+  const [Branch, setBranch] = React.useState("Branch")
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
@@ -58,20 +68,26 @@ export default function Home() {
                 <Input id="password" placeholder="••••••••" type="password" {...register("password", { required: true })} />
               </LabelInputContainer>
 
-              <LabelInputContainer>
-                <Label htmlFor="branch">Branch</Label>
-                <select
-                  id="branch"
-                  className="rounded-md bg-[#3C364A] p-2 w-full"
-                  {...register("Branch", { required: true })}
-                >
-                  <option value="Information Technology">Information Technology</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Mechanical">Mechanical</option>
-                  <option value="AI/DS">AI/DS</option>
-                  <option value="MCA">MCA</option>
-                </select>
-              </LabelInputContainer>
+              <DropdownMenu >
+      <DropdownMenuTrigger asChild>
+        <Button 
+        className="bg-gray-800 w-full mt-2 text-md" 
+        variant="secondary">
+          {Branch === "Branch" ? "Select Branch" : Branch}
+          <ChevronDown className="ml-2 h-5 w-5" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-full">
+        {/* <DropdownMenuSeparator /> */}
+        <DropdownMenuRadioGroup className="w-[480px]" value={Branch} onValueChange={setBranch}>
+          <DropdownMenuRadioItem value="Information Technology">Information Technology</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="Computer Science">Computer Science</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="Mechanical">Mechanical</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="AI/DS">AI/DS</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="MCA">MCA</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
 
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
 

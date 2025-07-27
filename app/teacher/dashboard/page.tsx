@@ -14,11 +14,6 @@ import {
   TooltipTrigger,
   TooltipProvider
 } from "@/components/ui/tooltip"
-// import { SubjectAttendance } from "./subject-attendence"
-// import { Notifications } from "./notifications"
-// import { Timetable } from "./timetable"
-// import { LatestResults } from "./latest-results"
-// import { AttendanceGraph } from "./attendence-graph"
 
 export default function Dashboard() {
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
@@ -94,33 +89,58 @@ export default function Dashboard() {
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
           <div className="flex flex-col min-h-full gap-6">
             <h1 className="text-2xl font-bold">Your Classes</h1>
-            <div className="bg- flex gap-5 align-middle items-center p-5 h-1/3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 p-4 md:p-5">
               {classes.map((cls) => (
                 <div 
                   key={cls.id}
                   onClick={() => handleClassClick(cls.id)}
-                  className={`cursor-pointer flex-col gap-3 h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-6
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      handleClassClick(cls.id);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={selectedClass === cls.id}
+                  aria-label={`${cls.name} class with ${cls.students} students, ${cls.attendance} attendance in room ${cls.room}`}
+                  className={`cursor-pointer flex-col gap-3 rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
                     border border-white/10 backdrop-blur-xl bg-black/20
-                    transition-all duration-300 ease-out
-                    
+                    transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-blue-500
                     hover:shadow-[0_0_25px_rgba(100,149,237,0.4)]
                     ${selectedClass === cls.id ? 
                       'border-white/90 shadow-[0_0_30px_rgba(100,149,237,0.5)]' : 
                       'hover:border-blue-500/30'
                     }`}
                 >
-                  <p className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
+                  <p className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
                   <div className="space-y-2 text-center">
-                    <p className="text-gray-300">Total No. Of Students: <span className="text-white">{cls.students}</span></p>
-                    <p className="text-gray-300">Aggregate Attendance: <span className="text-white">{cls.attendance}</span></p>
-                    <p className="text-gray-300">Room: <span className="text-white">{cls.room}</span></p>
+                    <p className="text-sm md:text-base text-gray-300">
+                      <span className="sr-only">Total Number of Students:</span>
+                      Students: <span className="text-white">{cls.students}</span>
+                    </p>
+                    <p className="text-sm md:text-base text-gray-300">
+                      <span className="sr-only">Aggregate Attendance:</span>
+                      Attendance: <span className="text-white">{cls.attendance}</span>
+                    </p>
+                    <p className="text-sm md:text-base text-gray-300">
+                      <span className="sr-only">Room Number:</span>
+                      Room: <span className="text-white">{cls.room}</span>
+                    </p>
                   </div>
                 </div>
               ))}
               <div 
                 onClick={() => setShowAddClass(true)}
-                className="cursor-pointer gap-5 flex-col h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-6
-                border border-green-500/30 backdrop-blur-md bg-white/5
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    setShowAddClass(true);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label="Add a new class"
+                className="cursor-pointer gap-5 flex-col rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
+                border border-green-500/30 backdrop-blur-md bg-white/5 focus:outline-none focus:ring-2 focus:ring-green-500
                 transition-all duration-300 ease-out
                 hover:scale-[1.02] hover:bg-white/10
                 hover:border-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.2)]">
@@ -231,14 +251,15 @@ export default function Dashboard() {
               </DialogContent>
             </Dialog>
 
-            <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl border border-white/10 min-h-[300px] p-6 flex justify-center flex-col">
+            <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl border border-white/10 min-h-[300px] p-4 md:p-6 flex justify-center flex-col">
               {selectedClass ? (
                 <div className="h-full flex flex-col">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold text-white">Today's Attendance - {classes.find(c => c.id === selectedClass)?.name}</h2>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                    <h2 className="text-lg md:text-xl font-semibold text-white">Today's Attendance - {classes.find(c => c.id === selectedClass)?.name}</h2>
                     <button
                       onClick={handleClearAttendance}
-                      className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm transition-colors"
+                      aria-label="Clear all attendance records"
+                      className="w-full sm:w-auto px-4 py-2 bg-gray-600 hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:outline-none text-white rounded-lg text-sm transition-colors"
                     >
                       Clear All
                     </button>
@@ -290,7 +311,9 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <div className="flex items-center align-middle h-full justify-center">
-                  <p className="text-gray-100 text-lg">Select a class to mark students attendance</p>
+                  <p className="text-gray-100 text-lg text-center" role="alert">
+                    Select a class to mark students attendance
+                  </p>
                 </div>
               )}
             </div>

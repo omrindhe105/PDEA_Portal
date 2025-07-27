@@ -86,16 +86,19 @@ export function Header() {
   }
 
   return (
-    <header className="border-b h-27 p-6 flex items-center justify-between">
-      <h1 className="text-2xl font-semibold">Welcome, <span className="text-muted-foreground">{session?.user?.name || "Prof.Dummy Patel!"}</span></h1>
-      <div className="flex items-center space-x-14">
+    <header className="border-b p-4 lg:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
+      <h1 className="text-xl sm:text-2xl font-semibold pl-12 lg:pl-0">
+        Welcome, <span className="text-muted-foreground">{session?.user?.name || "Prof.Dummy Patel!"}</span>
+      </h1>
+      <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
         <div className="relative">
           <Button 
             variant="outline" 
             className="relative" 
             onClick={() => setShowNotifications(!showNotifications)}
+            aria-label={`Notifications ${notifications.length > 0 ? `(${notifications.length} unread)` : ''}`}
           >
-            <Bell className="h-10 w-10" />
+            <Bell className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
             {notifications.length > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 {notifications.length}
@@ -104,11 +107,11 @@ export function Header() {
           </Button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-96 bg-background border rounded-lg shadow-lg z-50 overflow-hidden">
-              <div className="p-4 border-b">
-                <h3 className="text-lg font-semibold">Notifications</h3>
+            <div className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-[460px] lg:w-[500px] bg-background border rounded-lg shadow-lg z-50 overflow-hidden">
+              <div className="p-3 sm:p-4 border-b">
+                <h3 className="text-base sm:text-lg font-semibold">Notifications</h3>
               </div>
-              <div className="max-h-[400px] overflow-y-auto">
+              <div className="max-h-[60vh] sm:max-h-[400px] overflow-y-auto">
                 {notifications.map((notification) => (
                   <div key={notification.id} className="p-4 border-b hover:bg-[#1a1a1a] flex items-center justify-between">
                     <p className="text-sm flex-1">{notification.text}</p>
@@ -177,14 +180,14 @@ export function Header() {
         </div>
         <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="flex h-15 max-w-fit w-25" variant="outline">
-            <div className="flex items-center space-x-1">
-            <User className="h-10 w-10" />
-            <p className="">{session?.user?.name || "Dummy Patel"}</p>
+          <Button className="flex flex-col sm:flex-row items-center gap-2" variant="outline">
+            <div className="flex items-center gap-2">
+              <User className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
+              <p className="hidden sm:block text-sm lg:text-base">{session?.user?.name || "Dummy Patel"}</p>
             </div>
-            <p className="text-muted-foreground">{session?.user?.email || "Information Technology "}</p>
-        </Button>
-      </DropdownMenuTrigger>
+            <p className="hidden lg:block text-sm text-muted-foreground">{session?.user?.email || "Information Technology"}</p>
+          </Button>
+        </DropdownMenuTrigger>
       <DropdownMenuContent align="center" className="w-72">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
