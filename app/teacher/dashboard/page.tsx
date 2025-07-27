@@ -3,6 +3,7 @@ import { Sidebar } from "@/components/ui/sidebaradmin"
 import { Header } from "@/components/ui/adminheader"
 import { CiCirclePlus } from "react-icons/ci";
 import { useState } from "react";
+import {Checkbox } from "../../dashboard/ui/checkbox";
 // import { SubjectAttendance } from "./subject-attendence"
 // import { Notifications } from "./notifications"
 // import { Timetable } from "./timetable"
@@ -43,20 +44,32 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex font-figtree h-screen bg-background">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex font-figtree h-screen">
+      <div className="fixed inset-0 w-full h-screen bg-gradient-to-br from-[#0f0f0f] to-[#2a2a2a]">
+        <div className="absolute top-[40%] left-[40%] w-[280px] h-[280px] bg-white rounded-full opacity-20 blur-3xl" />
+        <div className="absolute bottom-[30%] right-[30%] w-[200px] h-[200px] bg-gray-300 rounded-full opacity-25 blur-3xl" />
+        <div className="absolute top-[20%] left-[20%] w-[160px] h-[160px] bg-slate-400 rounded-full opacity-15 blur-3xl" />
+        <div className="absolute bottom-[70%] right-[70%] w-[140px] h-[140px] bg-zinc-400 rounded-full opacity-10 blur-3xl" />
+        <div className="absolute top-[75%] left-[75%] w-[120px] h-[120px] bg-neutral-400 rounded-full opacity-30 blur-3xl" />
+        <div className="absolute bottom-[15%] left-[15%] w-[240px] h-[240px] bg-stone-400 rounded-full opacity-35 blur-3xl" />
+        <div className="absolute inset-0 bg-black/45 backdrop-blur-[10px]" />
+      </div>
+      
+      <div className="z-20">
+        <Sidebar />
+      </div>
+      <div className="flex-1 flex flex-col overflow-hidden relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
-          <div className="flex flex-col h-screen gap-6 ">
+          <div className="flex flex-col h-screen gap-6">
             <h1 className="text-2xl font-bold">Your Classes</h1>
             <div className="bg- flex gap-5 align-middle items-center p-5 h-1/3">
               {classes.map((cls) => (
                 <div 
                   key={cls.id}
                   onClick={() => handleClassClick(cls.id)}
-                  className={`cursor-pointer hover:border-blue-500 flex-col gap-3 border h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 ${
-                    selectedClass === cls.id ? 'border-blue-500 bg-blue-500/10' : ''
+                  className={`cursor-pointer hover:border-blue-500 flex-col gap-3 border h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 backdrop-blur-md bg-white/5 ${
+                    selectedClass === cls.id ? 'border-blue-500 bg-blue-500/20' : ''
                   }`}
                 >
                   <p className="text-2xl">{cls.name}</p>
@@ -72,7 +85,7 @@ export default function Dashboard() {
 
               </div>
             </div>
-            <div className="lg:col-span-3 bg-[#1a1a1a] rounded-xl p-6">
+            <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl p-6 border border-white/10">
               {selectedClass ? (
                 <>
                   <div className="flex justify-between items-center mb-4">
@@ -111,12 +124,7 @@ export default function Dashboard() {
                             <td className="py-3 px-4">{student.name}</td>
                             <td className="py-3 px-4">
                               <label className="flex items-center space-x-2">
-                                <input 
-                                  type="checkbox" 
-                                  checked={attendance[student.roll] || false}
-                                  onChange={(e) => handleAttendanceChange(student.roll, e.target.checked)}
-                                  className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-green-500 focus:ring-green-500"
-                                />
+                                <Checkbox checked={attendance[student.roll] || false} onCheckedChange={(checked) => handleAttendanceChange(student.roll, checked === true)} />
                                 <span className="text-sm text-gray-300">Present</span>
                               </label>
                             </td>
