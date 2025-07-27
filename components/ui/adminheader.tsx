@@ -97,7 +97,7 @@ export function Header() {
           >
             <Bell className="h-10 w-10" />
             {notifications.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 {notifications.length}
               </span>
             )}
@@ -110,7 +110,7 @@ export function Header() {
               </div>
               <div className="max-h-[400px] overflow-y-auto">
                 {notifications.map((notification) => (
-                  <div key={notification.id} className="p-4 border-b hover:bg-accent flex items-center justify-between">
+                  <div key={notification.id} className="p-4 border-b hover:bg-[#1a1a1a] flex items-center justify-between">
                     <p className="text-sm flex-1">{notification.text}</p>
                     <div className="flex items-center gap-2 ml-4">
                       <Button
