@@ -7,6 +7,13 @@ import {Checkbox } from "../../dashboard/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/app/dashboard/ui/input";
 import { Label } from "@/app/dashboard/ui/label";
+import { Clipboard  } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider
+} from "@/components/ui/tooltip"
 // import { SubjectAttendance } from "./subject-attendence"
 // import { Notifications } from "./notifications"
 // import { Timetable } from "./timetable"
@@ -151,21 +158,54 @@ export default function Dashboard() {
                   {!classCode ? (
                     <button
                       onClick={generateClassCode}
-                      className="mt-2 w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                      disabled={!newClass.className || !newClass.subject}
+                      className={`mt-2 w-full px-4 py-2 text-white rounded-lg transition-colors ${
+                        !newClass.className || !newClass.subject 
+                          ? 'bg-gray-600 cursor-not-allowed opacity-50' 
+                          : 'bg-green-600 hover:bg-green-700'
+                      }`}
                     >
                       Generate Class Code
                     </button>
                   ) : (
                     <div className="space-y-2">
                       <Label className="text-white">Class Code</Label>
-                      <div className="flex items-center justify-center p-3 bg-[#2a2a2a] rounded-lg border border-gray-700">
+                      <div className="flex items-center justify-center p-5 bg-[#2a2a2a] rounded-lg border border-gray-700">
                         <span className="text-3xl font-mono font-bold text-green-500 tracking-wider">
                           {classCode}
                         </span>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(classCode);
+                            const el = document.getElementById('copyFeedback');
+                            if (el) {
+                              el.classList.remove('opacity-0');
+                              setTimeout(() => el.classList.add('opacity-0'), 2000);
+                            }
+                          }}
+                          className="top-21 h-fit cursor-default bottom-30 right-6 absolute p-1 text-sm rounded transition-colors"
+                        >
+                          <Clipboard  className="h-8 p-1 mt-1 w-8 mb-11 cursor-pointer text-slate-400 hover:bg-zinc-600 rounded-lg hover:text-green-500"/>
+                          {/* <span id="copyFeedback" className="text-sm text-white  transition-opacity duration-200 opacity-0">
+                          Copied!
+                        </span> */}
+                        </button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p className="">Copy Code</p>
+      </TooltipContent>
+    </Tooltip>
+    </TooltipProvider>
+
                       </div>
-                      <p className="text-sm text-gray-400 text-center mt-2">
-                        Share this code with your students to join the class
-                      </p>
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-gray-400">
+                          Share this code with your students to join the class
+                        </p>
+                      </div>
                     </div>
                   )}
                   <div className="flex justify-between gap-3 mt-4">
