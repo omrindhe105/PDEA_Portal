@@ -7,7 +7,7 @@ import {Checkbox } from "../../dashboard/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/app/dashboard/ui/input";
 import { Label } from "@/app/dashboard/ui/label";
-import { Clipboard  } from 'lucide-react';
+import { Clipboard, Check  } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -29,6 +29,7 @@ export default function Dashboard() {
     subject: ''
   });
   const [classCode, setClassCode] = useState<string | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
   const generateClassCode = () => {
     // Generate a random 6-digit code
@@ -99,16 +100,16 @@ export default function Dashboard() {
                   key={cls.id}
                   onClick={() => handleClassClick(cls.id)}
                   className={`cursor-pointer flex-col gap-3 h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-6
-                    border border-white/10 backdrop-blur-md bg-white/5
+                    border border-white/10 backdrop-blur-xl bg-black/20
                     transition-all duration-300 ease-out
-                    hover:bg-white/10
-                    hover:shadow-[0_0_20px_rgba(100,149,237,0.2)]
+                    
+                    hover:shadow-[0_0_25px_rgba(100,149,237,0.4)]
                     ${selectedClass === cls.id ? 
-                      'border-white bg-blue-500/10 shadow-[0_0_25px_rgba(100,149,237,0.3)]' : 
+                      'border-white/90 shadow-[0_0_30px_rgba(100,149,237,0.5)]' : 
                       'hover:border-blue-500/30'
                     }`}
                 >
-                  <p className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
+                  <p className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
                   <div className="space-y-2 text-center">
                     <p className="text-gray-300">Total No. Of Students: <span className="text-white">{cls.students}</span></p>
                     <p className="text-gray-300">Aggregate Attendance: <span className="text-white">{cls.attendance}</span></p>
@@ -180,25 +181,23 @@ export default function Dashboard() {
                               <button
                                 onClick={() => {
                                   navigator.clipboard.writeText(classCode);
-                            const el = document.getElementById('copyFeedback');
-                            if (el) {
-                              el.classList.remove('opacity-0');
-                              setTimeout(() => el.classList.add('opacity-0'), 2000);
-                            }
-                          }}
-                          className="top-21 h-fit cursor-default bottom-30 right-6 absolute p-1 text-sm rounded transition-colors"
-                        >
-                          <Clipboard  className="h-8 p-1 mt-1 w-8 mb-11 cursor-pointer text-slate-400 hover:bg-zinc-600 rounded-lg hover:text-green-500"/>
-                          {/* <span id="copyFeedback" className="text-sm text-white  transition-opacity duration-200 opacity-0">
-                          Copied!
-                        </span> */}
-                        </button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p className="">Copy Code</p>
-      </TooltipContent>
-    </Tooltip>
-    </TooltipProvider>
+                                  setIsCopied(true);
+                                  setTimeout(() => setIsCopied(false), 2000);
+                                }}
+                                className="top-21 h-fit cursor-default bottom-30 right-6 absolute p-1 text-sm rounded transition-colors"
+                              >
+                                {isCopied ? (
+                                  <Check className="h-7 p-1 mt-1 w-7 mb-11 cursor-pointer text-green-500"/>
+                                ) : (
+                                  <Clipboard className="h-7 p-1 mt-1 w-7 mb-11 cursor-pointer text-slate-400 hover:bg-zinc-600 rounded-lg hover:text-green-500"/>
+                                )}
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Copy Code</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
 
                       </div>
                       <div className="flex justify-between items-center">

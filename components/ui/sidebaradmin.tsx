@@ -4,7 +4,7 @@ import { Button } from "./button"
 import { BsMenuUp } from "react-icons/bs";
 export function Sidebar() {
   return (
-    <aside className="w-64 border-r h-full bg-background p-6">
+    <aside className="w-64 border-r h-full bg- p-6">
       <div className="flex items-center mb-8">
         <div className="w-6 h-6 mr-3">
           <BsMenuUp className="text-white w-full h-full" />

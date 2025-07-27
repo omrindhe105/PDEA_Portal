@@ -86,8 +86,8 @@ export function Header() {
   }
 
   return (
-    <header className="border-b bg-background h-27 p-6 flex items-center justify-between">
-      <h1 className="text-2xl font-semibold">Welcome,{session?.user?.name || "Prof.Dummy Patel"}!</h1>
+    <header className="border-b h-27 p-6 flex items-center justify-between">
+      <h1 className="text-2xl font-semibold">Welcome, <span className="text-muted-foreground">{session?.user?.name || "Prof.Dummy Patel!"}</span></h1>
       <div className="flex items-center space-x-14">
         <div className="relative">
           <Button 
