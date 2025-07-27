@@ -1,4 +1,4 @@
-import { Home, Calendar, BookOpen, Bell, User } from "lucide-react"
+import { Home, Calendar, Megaphone, Bell, User } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./button"
 import { BsMenuUp } from "react-icons/bs";
@@ -29,8 +29,8 @@ export function Sidebar() {
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
               <Link href="/courses">
-                <BookOpen className="mr-3 h-5 w-5" />
-                Courses
+                <Megaphone className="mr-3 h-5 w-5" />
+                Notices
               </Link>
             </Button>
           </div>

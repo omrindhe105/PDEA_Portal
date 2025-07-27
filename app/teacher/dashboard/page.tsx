@@ -4,6 +4,9 @@ import { Header } from "@/components/ui/adminheader"
 import { CiCirclePlus } from "react-icons/ci";
 import { useState } from "react";
 import {Checkbox } from "../../dashboard/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/app/dashboard/ui/input";
+import { Label } from "@/app/dashboard/ui/label";
 // import { SubjectAttendance } from "./subject-attendence"
 // import { Notifications } from "./notifications"
 // import { Timetable } from "./timetable"
@@ -13,6 +16,26 @@ import {Checkbox } from "../../dashboard/ui/checkbox";
 export default function Dashboard() {
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   const [attendance, setAttendance] = useState<{[key: string]: boolean}>({});
+  const [showAddClass, setShowAddClass] = useState(false);
+  const [newClass, setNewClass] = useState({
+    className: '',
+    subject: ''
+  });
+  const [classCode, setClassCode] = useState<string | null>(null);
+
+  const generateClassCode = () => {
+    // Generate a random 6-digit code
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    setClassCode(code);
+  };
+
+  const handleAddClass = () => {
+    // Here you would typically save the class to your backend
+    console.log('New class:', { ...newClass, code: classCode });
+    setShowAddClass(false);
+    setNewClass({ className: '', subject: '' });
+    setClassCode(null);
+  };
 
   const handleClassClick = (classId: string) => {
     if (selectedClass === classId) {
@@ -61,33 +84,117 @@ export default function Dashboard() {
       <div className="flex-1 flex flex-col overflow-hidden relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
-          <div className="flex flex-col h-screen gap-6">
+          <div className="flex flex-col min-h-full gap-6">
             <h1 className="text-2xl font-bold">Your Classes</h1>
             <div className="bg- flex gap-5 align-middle items-center p-5 h-1/3">
               {classes.map((cls) => (
                 <div 
                   key={cls.id}
                   onClick={() => handleClassClick(cls.id)}
-                  className={`cursor-pointer hover:border-blue-500 flex-col gap-3 border h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 backdrop-blur-md bg-white/5 ${
-                    selectedClass === cls.id ? 'border-blue-500 bg-blue-500/20' : ''
-                  }`}
+                  className={`cursor-pointer flex-col gap-3 h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-6
+                    border border-white/10 backdrop-blur-md bg-white/5
+                    transition-all duration-300 ease-out
+                    hover:bg-white/10
+                    hover:shadow-[0_0_20px_rgba(100,149,237,0.2)]
+                    ${selectedClass === cls.id ? 
+                      'border-white bg-blue-500/10 shadow-[0_0_25px_rgba(100,149,237,0.3)]' : 
+                      'hover:border-blue-500/30'
+                    }`}
                 >
-                  <p className="text-2xl">{cls.name}</p>
-                  <p>Total No. Of Students: {cls.students}</p>
-                  <p>Aggregate Attendance: {cls.attendance}</p>
-                  <p>Room: {cls.room}</p>
+                  <p className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
+                  <div className="space-y-2 text-center">
+                    <p className="text-gray-300">Total No. Of Students: <span className="text-white">{cls.students}</span></p>
+                    <p className="text-gray-300">Aggregate Attendance: <span className="text-white">{cls.attendance}</span></p>
+                    <p className="text-gray-300">Room: <span className="text-white">{cls.room}</span></p>
+                  </div>
                 </div>
               ))}
-              <div className="cursor-pointer gap-5 flex-col border h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 border-green-600">
+              <div 
+                onClick={() => setShowAddClass(true)}
+                className="cursor-pointer gap-5 flex-col h-full rounded-xl flex items-center justify-center text-white text-lg font-semibold p-6
+                border border-green-500/30 backdrop-blur-md bg-white/5
+                transition-all duration-300 ease-out
+                hover:scale-[1.02] hover:bg-white/10
+                hover:border-green-400 hover:shadow-[0_0_20px_rgba(74,222,128,0.2)]">
                 <p className="text-xl">Add Class</p>
                 <p className="text-sm text-center">Create a new class for your students</p>
                 <CiCirclePlus className="w-16 h-16 text-white cursor-pointer hover:text-green-500 transition-colors" />
-
               </div>
             </div>
-            <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+
+            <Dialog open={showAddClass} onOpenChange={setShowAddClass}>
+              <DialogContent className="sm:max-w-[425px] bg-[#1a1a1a] text-white border-gray-800">
+                <DialogHeader>
+                  <DialogTitle className="text-xl font-semibold text-white">Add New Class</DialogTitle>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="className" className="text-white">Class Name</Label>
+                    <Input
+                      id="className"
+                      placeholder="Enter class name"
+                      value={newClass.className}
+                      onChange={(e) => setNewClass({ ...newClass, className: e.target.value })}
+                      className="bg-[#2a2a2a] border-gray-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="subject" className="text-white">Subject</Label>
+                    <Input
+                      id="subject"
+                      placeholder="Enter subject name"
+                      value={newClass.subject}
+                      onChange={(e) => setNewClass({ ...newClass, subject: e.target.value })}
+                      className="bg-[#2a2a2a] border-gray-700 text-white"
+                    />
+                  </div>
+                  {!classCode ? (
+                    <button
+                      onClick={generateClassCode}
+                      className="mt-2 w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                    >
+                      Generate Class Code
+                    </button>
+                  ) : (
+                    <div className="space-y-2">
+                      <Label className="text-white">Class Code</Label>
+                      <div className="flex items-center justify-center p-3 bg-[#2a2a2a] rounded-lg border border-gray-700">
+                        <span className="text-3xl font-mono font-bold text-green-500 tracking-wider">
+                          {classCode}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-400 text-center mt-2">
+                        Share this code with your students to join the class
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex justify-between gap-3 mt-4">
+                    <button
+                      onClick={() => {
+                        setShowAddClass(false);
+                        setNewClass({ className: '', subject: '' });
+                        setClassCode(null);
+                      }}
+                      className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    {classCode && (
+                      <button
+                        onClick={handleAddClass}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                      >
+                        Create Class
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl border border-white/10 min-h-[300px] p-6 flex justify-center flex-col">
               {selectedClass ? (
-                <>
+                <div className="h-full flex flex-col">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-white">Today's Attendance - {classes.find(c => c.id === selectedClass)?.name}</h2>
                     <button
@@ -97,7 +204,7 @@ export default function Dashboard() {
                       Clear All
                     </button>
                   </div>
-                  <div className="overflow-x-auto">
+                  <div className="flex-1 overflow-x-auto min-h-0">
                     <table className="w-full text-white">
                       <thead className="border-b border-gray-600">
                         <tr className="text-left">
@@ -141,10 +248,10 @@ export default function Dashboard() {
                       </button>
                     </div>
                   </div>
-                </>
+                </div>
               ) : (
-                <div className="flex items-center justify-center h-40">
-                  <p className="text-gray-400 text-lg">Select a class to view students attendance</p>
+                <div className="flex items-center align-middle h-full justify-center">
+                  <p className="text-gray-100 text-lg">Select a class to mark students attendance</p>
                 </div>
               )}
             </div>
