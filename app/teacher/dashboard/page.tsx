@@ -14,11 +14,6 @@ import {
   TooltipTrigger,
   TooltipProvider
 } from "@/components/ui/tooltip"
-// import { SubjectAttendance } from "./subject-attendence"
-// import { Notifications } from "./notifications"
-// import { Timetable } from "./timetable"
-// import { LatestResults } from "./latest-results"
-// import { AttendanceGraph } from "./attendence-graph"
 
 export default function Dashboard() {
   const [selectedClass, setSelectedClass] = useState<string | null>(null);

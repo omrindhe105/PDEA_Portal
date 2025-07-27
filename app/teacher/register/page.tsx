@@ -12,10 +12,8 @@ import { ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
@@ -24,7 +22,7 @@ export default function Home() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data: any) => console.log(data);
   console.log(errors);
-  const [Branch, setBranch] = React.useState("bottom")
+  const [Branch, setBranch] = React.useState("Branch")
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
@@ -73,9 +71,9 @@ export default function Home() {
               <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <Button 
-        className="w-full mt-2 text-md" 
-        variant="outline">
-          {Branch === "bottom" ? "Select Branch" : Branch}  {/* Display selected branch or default text */}
+        className="bg-gray-800 w-full mt-2 text-md" 
+        variant="secondary">
+          {Branch === "Branch" ? "Select Branch" : Branch}
           <ChevronDown className="ml-2 h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
