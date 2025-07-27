@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
+import { FaArrowRightLong } from "react-icons/fa6";
+
 export default function Home() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data: any) => console.log(data);
@@ -14,7 +16,7 @@ export default function Home() {
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
-  colorStops={["#76ff67", "#B19EEF", "#5227FF"]}
+  colorStops={["#c94b4b", "#302b63", "#4b134f"]}
   blend={1}
   amplitude={1.5}
   speed={0.5}
@@ -27,12 +29,13 @@ export default function Home() {
           <Redirect/>
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
             <form 
-              className="flex flex-col gap-3 py-5 rounded-2xl "
+              className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl "
               onSubmit={handleSubmit(onSubmit)}
             >
               <p className="text-white text-center text-2xl">
-                Login/Register For Teacher and Admin
+                Register as a Teacher at PDEA's Portal
               </p>
+              <p>Already Registered as a Teacher?<Link className="text-blue-500" href="/teacher/login"> Login.</Link></p>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
 
               <LabelInputContainer>
@@ -73,9 +76,12 @@ export default function Home() {
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
 
               <input
-                className="bg-[#2e2d31] text-lg text-white h-10 rounded-lg cursor-pointer hover:bg-black transition"
+                className="bg-[#443379] text-lg text-white rounded-lg cursor-pointer hover:bg-black transition w-full h-10"
                 type="submit"
+                value="Register"
+                
               />
+              
         <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/" >Click Here For Student Login!</Link></div>
             </form>
           </div>
