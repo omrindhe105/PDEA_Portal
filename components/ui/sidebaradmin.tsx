@@ -34,12 +34,12 @@ export function Sidebar() {
       </button>
 
       <aside className={cn(
-        "fixed inset-y-0 left-0 z-40 w-64 border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
+        "fixed inset-y-0 left-0 z-40 w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
         isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
         "lg:translate-x-0 lg:static"
       )}>
         <div className="flex items-center mb-8">
-          <h2 className="text-xl font-semibold">Menu</h2>
+          <h2 className="text-xl font-semibold ml-10">Menu</h2>
         </div>
       <nav className="space-y-8">
         <div>

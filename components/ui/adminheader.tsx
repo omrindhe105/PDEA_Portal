@@ -1,5 +1,5 @@
 "use client";
-import { Bell, Search, User, LogOut, UserCircle, Check, X, AlertTriangle } from "lucide-react"
+import { Bell, Search, User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "./button"
 import { ModeToggle } from "../../app/dashboard/mode-toggle"
@@ -86,11 +86,24 @@ export function Header() {
   }
 
   return (
-    <header className="border-b p-4 lg:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
-      <h1 className="text-xl sm:text-2xl font-semibold pl-12 lg:pl-0">
-        Welcome, <span className="text-muted-foreground">{session?.user?.name || "Prof.Dummy Patel!"}</span>
-      </h1>
-      <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
+    <header className="border-b p-4 lg:p-6 flex items-center justify-between relative">
+      <div className="flex items-center justify-between w-full">
+        <button
+          onClick={() => setShowNotifications(!showNotifications)}
+          className="lg:hidden z-50 p-2 rounded-lg bg-background/10 backdrop-blur-lg border border-white/10"
+          aria-label={showNotifications ? "Close menu" : "Open menu"}
+        >
+          {showNotifications ? (
+            <X className="h-6 w-6 text-white" />
+          ) : (
+            <Menu className="h-6 w-6 text-white" />
+          )}
+        </button>
+        <h1 className="text-2xl sm:text-2xl font-semibold text-center w-full">
+         <span className="text-muted-foreground">Welcome,</span> {session?.user?.name || "Prof.Dummy Patel!"}
+        </h1>
+      </div>
+      <div className="hidden lg:flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
         <div className="relative">
           <Button 
             variant="outline" 
