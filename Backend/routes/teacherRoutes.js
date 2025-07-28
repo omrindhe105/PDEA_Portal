@@ -5,7 +5,8 @@ const {teacherRegisration, teacherLogin , teacherLogout}= require("../controller
 
 route.post("/teacherRegistration",teacherRegisration);
 route.post("/teacherLogin",teacherLogin); 
-route.post("/logout", teacherLogout);       
+route.post("/logout", teacherLogout);  
+     
 
 
 module.exports = route;

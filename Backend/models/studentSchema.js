@@ -16,10 +16,9 @@ const studentSchema = new mongoose.Schema({
 
 
 const teacherSchema = new mongoose.Schema({
-    name:String,
+    firstname:String,
+    lastname:String,
     email:String,
-    department:String,
-    mobile:Number,
     password:String,    
 })
 

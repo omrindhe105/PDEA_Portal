@@ -95,6 +95,9 @@ const adminLogout = (req, res) => {
     res.status(200).json({ message: "Admin logged out successfully" });
 };
 
+//admin authentication
+
+
 
 
 const teacherlist = async (req, res) => {
