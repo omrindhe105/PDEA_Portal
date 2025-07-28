@@ -3,12 +3,12 @@ import type React from "react"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { signIn, useSession } from "next-auth/react"
-import router, { Router, useRouter } from "next/router"
-import { useEffect ,useState} from "react"
+import { signIn} from "next-auth/react"
+// import router, { Router, useRouter } from "next/router"
+import { useState} from "react"
 import Link from "next/link"
 export default function SignupFormDemo() {
-  const session=useSession();
+  // const session=useSession();
  
 
  const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ export default function SignupFormDemo() {
   }
   return (
     <div className="w-full rounded-none md:rounded-2xl flex flex-col items-center md:p-8 shadow-input z-10 ">
-      <h2 className="font-figtree z-10 text-lg md:text-3xl text-white text-center">Login to PDEA's Portal</h2>
+      <h2 className="font-figtree z-10 text-lg md:text-3xl text-white text-center">Login to PDEA&apos;s Portal</h2>
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
       <p className="text-center mb-10 text-white font-figtree text-md max-w-sm mt-2">
 Enter Your Credentials to view your Profile and Latest Notifications</p>

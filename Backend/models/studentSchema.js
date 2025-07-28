@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
@@ -19,7 +20,8 @@ const teacherSchema = new mongoose.Schema({
     firstname:String,
     lastname:String,
     email:String,
-    password:String,    
+    password:String, 
+    branch:String,   
 })
 
 const Teacher = mongoose.model("teacher",teacherSchema)
