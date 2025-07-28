@@ -7,7 +7,7 @@ import {Checkbox } from "../../dashboard/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/app/dashboard/ui/input";
 import { Label } from "@/app/dashboard/ui/label";
-import { Clipboard, Check  } from 'lucide-react';
+import { Clipboard, Check,CircleAlert,ChevronsRight, ChevronsLeft   } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +25,8 @@ export default function Dashboard() {
   });
   const [classCode, setClassCode] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [presentCount, setPresentCount] = useState(0);
 
   const generateClassCode = () => {
     // Generate a random 6-digit code
@@ -60,6 +62,9 @@ export default function Dashboard() {
   };
 
   const handleSubmitAttendance = () => {
+    const count = Object.values(attendance).filter(Boolean).length;
+    setPresentCount(count);
+    setShowConfirmation(true);
     console.log('Submitting attendance:', attendance);
     // Here you would typically send this to your backend
   };
@@ -247,6 +252,37 @@ export default function Dashboard() {
                       </button>
                     )}
                   </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+              <DialogContent className="sm:max-w-[425px] bg-[#1a1a1a] text-white border-gray-800">
+                <DialogHeader>
+                  <DialogTitle className="text-xl flex justify-start align-middle items-center font-semibold text-white">
+                    <CircleAlert className="mr-2" />
+                    Submit Attendance?
+                  </DialogTitle>
+                  
+                </DialogHeader>
+                <div className="py-4">
+                  <p className="text-white text-lg">
+                    You have marked <span className="font-bold">{presentCount}</span> students as present.
+                  </p>
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => setShowConfirmation(false)}
+                    className="px-4 py-2 flex bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                  >
+                    <ChevronsLeft className="inline-block mr-1" />Close 
+                  </button>
+                  <button
+                        onClick={handleSubmitAttendance}
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex transition-colors"
+                      >
+                        Submit <ChevronsRight className="inline-block ml-1" />
+                      </button>
                 </div>
               </DialogContent>
             </Dialog>
