@@ -1,4 +1,4 @@
-import { Home, Calendar, Megaphone, Bell, User, Menu, X } from "lucide-react"
+import { Home, Calendar, Megaphone, Bell, User, Menu, X, SquareMenu, PanelsTopLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./button"
 import { useState, useEffect } from "react";
@@ -38,8 +38,8 @@ export function Sidebar() {
         isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
         "lg:translate-x-0 lg:static"
       )}>
-        <div className="flex items-center mb-8">
-          <h2 className="text-xl font-semibold ml-10">Menu</h2>
+        <div className="flex text-xl font-semibold items-center mb-8">
+          <PanelsTopLeft className="mr-4" />Menu
         </div>
       <nav className="space-y-8">
         <div>
