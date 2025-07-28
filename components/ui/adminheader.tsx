@@ -99,7 +99,7 @@ export function Header() {
             <Menu className="h-6 w-6 text-white" />
           )}
         </button>
-        <h1 className="text-2xl sm:text-2xl font-semibold text-center w-full">
+        <h1 className="text-2xl sm:text-2xl md:text-left font-semibold text-center w-full">
          <span className="text-muted-foreground">Welcome,</span> {session?.user?.name || "Prof.Dummy Patel!"}
         </h1>
       </div>
