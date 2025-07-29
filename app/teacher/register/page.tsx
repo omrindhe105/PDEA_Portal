@@ -18,11 +18,42 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button";
 
+type FormData = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+};
+
 export default function Home() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => console.log(data);
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const [Branch, setBranch] = React.useState("Branch");
+  const onSubmit = (data: FormData) => {
+    const fullData = { ...data, branch: Branch };
+    console.log(fullData);
+
+
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     const response = fetch('http://localhost:3000/teacher/register', {
+
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fullData),
+    }).then((res) => {
+      if (res.ok) {
+        alert("Registration Successful");
+        window.location.href = "/teacher/login";
+      } else {
+        alert("Registration Failed");
+      }
+    }).catch((error) => {
+      console.error("Error during registration:", error);
+      alert("An error occurred during registration. Please try again.");  
+     })
+  };
   console.log(errors);
-  const [Branch, setBranch] = React.useState("Branch")
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
@@ -43,7 +74,7 @@ export default function Home() {
               onSubmit={handleSubmit(onSubmit)}
             >
               <p className="text-white text-center text-2xl">
-                Register as a Teacher at PDEA's Portal
+                Register as a Teacher at PDEA&apos;s Portal
               </p>
               <p>Already Registered as a Teacher?<Link className="text-blue-500" href="/teacher/login"> Login.</Link></p>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />

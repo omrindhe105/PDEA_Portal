@@ -7,33 +7,68 @@ import { Input } from "@/components/ui/input";
 import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
+  type FormData = {
+  
+  email: string;
+  password: string;
+};
 export default function Home() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-  console.log(errors);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    console.log("Submitted Data:", data);
+
+    try {
+      const response = await fetch("http://localhost:3000/teacher/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Login Successful");
+        response.json().then((data) => {
+          console.log("Response Data:", data);
+        });
+        window.location.href = "/teacher/dashboard"; // redirect to dashboard
+      } else {
+        alert("Login Failed");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred during login.");
+    }
+  };
+
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
-  colorStops={["#76ff67", "#B19EEF", "#5227FF"]}
-  blend={1}
-  amplitude={1.5}
-  speed={0.5}
-/>
-    <div className="font-figtree absolute w-3/4 z-20 backdrop-blur-md flex p-5 h-4/5 align-middle items-center rounded-3xl bg-[#6a69691e] overflow-hidden">
+        colorStops={["#76ff67", "#B19EEF", "#5227FF"]}
+        blend={1}
+        amplitude={1.5}
+        speed={0.5}
+      />
+      <div className="font-figtree absolute w-3/4 z-20 backdrop-blur-md flex p-5 h-4/5 align-middle items-center rounded-3xl bg-[#6a69691e] overflow-hidden">
         <div className="w-1/2 hidden md:flex overflow-hidden rounded-3xl items-center justify-center h-full">
-          <ImageGallery/>
+          <ImageGallery />
         </div>
         <div className="w-full md:w-1/2">
-          <Redirect/>
+          <Redirect />
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
-            <form 
-              className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl "
+            <form
+              className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl"
               onSubmit={handleSubmit(onSubmit)}
             >
               <p className="text-white text-center text-2xl">
-                Login as a Teacher at PDEA's Portal
+                Login as a Teacher at PDEA&apos;s Portal
               </p>
-              <p>Don't have an account as a Teacher? <Link className="text-blue-500" href="/teacher/register">Register here.</Link></p>
+              <p>Don&apos;t have an account as a Teacher? <Link className="text-blue-500" href="/teacher/register">Register here.</Link></p>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
 
               <LabelInputContainer>

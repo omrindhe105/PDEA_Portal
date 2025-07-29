@@ -1,15 +1,27 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
+
+
+
+// import  bcrypt from 'bcrypt';
 const bcrypt = require('bcrypt');
-const dotenv = require("dotenv");
+// import bcrypt from 'bcrypt';
+// import jwt from 'jsonwebtoken';
+// const dotenv = require("dotenv");
+
 const { Teacher } = require('../models/studentSchema');
+// import { Teacher } from '../models/studentSchema';
 
 
 
 
 const teacherRegisration = async(req , res)=>{
 
-    const { name, email, department, mobile, password } = req.body;
+    const { firstname,
+    lastname,
+    email,
+    password, 
+    branch } = req.body;
 
     const existingTeacher = await Teacher.findOne({
         email: email
@@ -23,21 +35,21 @@ const teacherRegisration = async(req , res)=>{
 
     const hashedPassword =await bcrypt.hash(password,10);
     const newTeacher = new Teacher({
-        name,
-        email,
-        department,
-        mobile,
-        password: hashedPassword
+       firstname,
+    lastname,
+    email,
+    password:hashedPassword, 
+    branch,
     });
 
     await newTeacher.save();
      res.status(200).json({
         message: "Teacher registered successfully",
         teacher: {
-            name: name,
+            name: `${firstname} ${lastname}`,
             email: email,
-            department: department,
-            mobile: mobile
+            branch: branch
+            
         }
     });
 }
