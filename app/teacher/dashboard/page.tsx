@@ -85,10 +85,10 @@ export default function Dashboard() {
         <div className="absolute bottom-[15%] left-[15%] w-[240px] h-[240px] bg-stone-400 rounded-full opacity-35 blur-3xl" />
         <div className="absolute inset-0 bg-black/45 backdrop-blur-[10px]" />
       </div>
-      
+{/*       
       <div className="z-20">
         <Sidebar />
-      </div>
+      </div> */}
       <div className="flex-1 flex flex-col overflow-hidden relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
@@ -110,7 +110,7 @@ export default function Dashboard() {
                   aria-label={`${cls.name} class with ${cls.students} students, ${cls.attendance} attendance in room ${cls.room}`}
                   className={`cursor-pointer flex-col gap-3 rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
                     border border-white/10 backdrop-blur-xl bg-black/20
-                    transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-blue-500
+                    transition-all duration-300 ease-out
                     hover:shadow-[0_0_25px_rgba(100,149,237,0.4)]
                     ${selectedClass === cls.id ? 
                       'border-white/90 shadow-[0_0_30px_rgba(100,149,237,0.5)]' : 
