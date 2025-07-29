@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
+// import { cookies } from "next/headers";
   type FormData = {
   
   email: string;
@@ -21,9 +22,13 @@ export default function Home() {
 
   const onSubmit = async (data: FormData) => {
     console.log("Submitted Data:", data);
+    
+
+    
+ 
 
     try {
-      const response = await fetch("http://localhost:3000/teacher/login", {
+      const response = await fetch("http://localhost:3001/teacher/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,17 +37,30 @@ export default function Home() {
       });
 
       if (response.ok) {
-        alert("Login Successful");
-        response.json().then((data) => {
-          console.log("Response Data:", data);
-        });
-        window.location.href = "/teacher/dashboard"; // redirect to dashboard
+   
+         
+        const result = await response.json();
+
+        console.log("Login Result:", result.token);
+        console.log(alert("Login Successful"));
+        localStorage.setItem("token", result.token);
+        // Redirect to the dashboard
+
+ 
+        
+         
+
+
+        
+         window.location.href = "/teacher/dashboard";
       } else {
         alert("Login Failed");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred during login.");
+      
+  console.log("Error during login:", error);
+      
+      
     }
   };
 

@@ -20,7 +20,7 @@ export function Header() {
   const handleLogout = async () => {
     await signOut({ 
       redirect: true, 
-      callbackUrl: "/" 
+      callbackUrl: "/teacher/login" 
     })
   }
   return (

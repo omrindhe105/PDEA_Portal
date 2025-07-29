@@ -60,6 +60,7 @@ const teacherRegisration = async(req , res)=>{
 const teacherLogin = async(req, res) => {
 
     const {email , password} = req.body;
+    console.log("Email:", email);
 
      const teacher = await Teacher.findOne({email: email});
 

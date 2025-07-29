@@ -19,7 +19,7 @@ const cors = require('cors');
 const studentRoutes = require("./routes/studentRoutes");
 const adminRoutes = require("./routes/adminRoute");
 const teacherRoutes = require("./routes/teacherRoutes");
-app.use(cors({ origin: 'http://localhost:3001' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(cookieParser());
 app.use(express.urlencoded({extended : true}) )   // handle form data
 app.use(express.json());
