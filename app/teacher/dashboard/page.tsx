@@ -76,19 +76,6 @@ export default function Dashboard() {
 
   return (
     <div className="flex font-figtree h-screen">
-      <div className="fixed inset-0 w-full h-screen bg-gradient-to-br from-[#0f0f0f] to-[#2a2a2a]">
-        <div className="absolute top-[40%] left-[40%] w-[280px] h-[280px] bg-white rounded-full opacity-20 blur-3xl" />
-        <div className="absolute bottom-[30%] right-[30%] w-[200px] h-[200px] bg-gray-300 rounded-full opacity-25 blur-3xl" />
-        <div className="absolute top-[20%] left-[20%] w-[160px] h-[160px] bg-slate-400 rounded-full opacity-15 blur-3xl" />
-        <div className="absolute bottom-[70%] right-[70%] w-[140px] h-[140px] bg-zinc-400 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute top-[75%] left-[75%] w-[120px] h-[120px] bg-neutral-400 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute bottom-[15%] left-[15%] w-[240px] h-[240px] bg-stone-400 rounded-full opacity-35 blur-3xl" />
-        <div className="absolute inset-0 bg-black/45 backdrop-blur-[10px]" />
-      </div>
-{/*       
-      <div className="z-20">
-        <Sidebar />
-      </div> */}
       <div className="flex-1 flex flex-col overflow relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
