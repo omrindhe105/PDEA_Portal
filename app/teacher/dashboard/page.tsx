@@ -89,7 +89,7 @@ export default function Dashboard() {
       <div className="z-20">
         <Sidebar />
       </div> */}
-      <div className="flex-1 flex flex-col overflow-hidden relative z-10">
+      <div className="flex-1 flex flex-col overflow relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
           <div className="flex flex-col min-h-full gap-6">
