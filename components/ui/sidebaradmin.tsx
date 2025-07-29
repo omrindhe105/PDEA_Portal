@@ -74,7 +74,7 @@ export function Sidebar() {
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notifications">
+              <Link href="/teacher/dashboard/notices">
                 <Megaphone className="mr-3 h-5 w-5" />
                 Notices
               </Link>
@@ -85,7 +85,7 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Account</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="">
+              <Link href="/teacher/dashboard/notifications">
                 <Bell className="mr-3 h-5 w-5" />
                 Notifications
               </Link>

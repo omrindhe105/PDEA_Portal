@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { Header } from "@/components/ui/adminheader"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/app/dashboard/ui/card";
 import Link  from "next/link";
+import { Button
+ } from '@/components/ui/button';
+ import { Check, X } from 'lucide-react';
 interface Notification {
     id: number;
     type: 'Notice' | 'Circular';
@@ -13,33 +16,44 @@ interface Notification {
     content: string;
 }
 
-export default function noticesPage() {
-    const [notices] = useState<Notification[]>([
-        {
-            id: 1,
-            type: 'Notice',
-            title: 'Annual Sports Day',
-            date: '2024-02-15',
-            time: '10:00 AM',
-            content: 'Annual Sports Day will be held on February 20th. All teachers must attend.',
-        },
-        {
-            id: 2,
-            type: 'Circular',
-            title: 'Staff Meeting',
-            date: '2024-02-10',
-            time: '2:00 PM',
-            content: 'Monthly staff meeting scheduled for next Monday at 2 PM.',
-        },
-        {
-            id: 3,
-            type: 'Notice',
-            title: 'Parent-Teacher Meeting',
-            date: '2024-02-25',
-            time: '3:00 PM',
-            content: 'PTM for all classes will be conducted on February 25th.',
-        },
-    ]);
+export default function NotificationsPage() {
+      const [confirmationDialog, setConfirmationDialog] = useState<{
+    isOpen: boolean;
+    type: 'approve' | 'deny' | null;
+    notificationId: number | null;
+    studentName: string;
+  }>({
+    isOpen: false,
+    type: null,
+    notificationId: null,
+    studentName: ''
+  });
+      const handleApproveClick = (id: number, studentName: string) => {
+    setConfirmationDialog({
+      isOpen: true,
+      type: 'approve',
+      notificationId: id,
+      studentName
+    });
+  };
+
+  const handleDenyClick = (id: number, studentName: string) => {
+    setConfirmationDialog({
+      isOpen: true,
+      type: 'deny',
+      notificationId: id,
+      studentName
+    });
+  };
+    
+    
+      const [notifications, setNotifications] = useState([
+    { id: 1, text: "is trying to join the BE IT Classroom", studentName: "Mukesh Vaneeyar", pending: true },
+    { id: 2, text: "is trying to join the TE IT Classroom", studentName: "Bhamshu tahb", pending: true },
+    { id: 3, text: "is trying to join the SE IT Classroom", studentName: "Khandge Kumar", pending: true },
+    { id: 4, text: "is trying to join the BE IT Classroom", studentName: "Bhau Rindhe", pending: true },
+    { id: 5, text: "is trying to join the TE IT Classroom", studentName: "Mattoo bhat", pending: true },
+  ]);
 
     return (
         
@@ -47,27 +61,38 @@ export default function noticesPage() {
         <Header />
         <div className='p-6'>
 
-            <h1 className="text-2xl font-bold mb-8 text-gray-100">Notices and Circulars</h1>
-            <div className=" md:grid-cols-2 lg:grid-cols-3 gap-2 mb-3">
-                {notices.map((notification) => (
-                    <Link key={notification.id} href={`/notices/${notification.id}`}>
-                        <Card className="cursor-pointer border border-white/10 backdrop-blur-xl bg-black/20
-                        transition-all duration-300 ease-out
-                        hover:shadow-[0_0_25px_rgba(100,149,237,0.4)] text-white shadow-lg mb-5">
-                        <CardHeader>
-                            <CardTitle className="text-xl font-bold">{notification.title}</CardTitle>
-                            <CardDescription className="text-sm text-gray-400">{notification.date},{notification.time}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-gray-300 mb-4">{notification.content}</p>
-                            <span className={`px-3 py-1 text-sm rounded-full ${notification.type === 'Notice' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'}`}>
-                                {notification.type}
-                            </span>
-                        </CardContent>
-                    </Card>
-                    </Link>
-                ))}
-            </div>
+            <h1 className="text-2xl font-bold mb-5 text-gray-100">Notifications</h1>
+            <div className="overflow-y-auto">
+                            {notifications.map((notification) => (
+                              <div key={notification.id} className="p-5 rounded-lg mb-2 border-b hover:bg-gray-900/50 flex items-center justify-between">
+                                <p className='mr-1 font-semibold'>{notification.studentName}</p>
+                                <p className="text-lg flex-1">{notification.text}</p>
+                                <div className="flex items-center gap-10 ml-4">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleApproveClick(notification.id, notification.studentName)}
+                                    className="h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
+                                  >
+                                    Approve<Check className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleDenyClick(notification.id, notification.studentName)}
+                                    className="h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
+                                  >
+                                    Deny<X className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                            {notifications.length === 0 && (
+                              <div className="p-4 text-center text-muted-foreground">
+                                No new notifications
+                              </div>
+                            )}
+                          </div>
             </div>
         </div>
     );
