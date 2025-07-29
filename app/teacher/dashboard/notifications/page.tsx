@@ -9,6 +9,7 @@ interface Notification {
     type: 'Notice' | 'Circular';
     title: string;
     date: string;
+    time: string; 
     content: string;
 }
 
@@ -19,6 +20,7 @@ export default function NotificationsPage() {
             type: 'Notice',
             title: 'Annual Sports Day',
             date: '2024-02-15',
+            time: '10:00 AM',
             content: 'Annual Sports Day will be held on February 20th. All teachers must attend.',
         },
         {
@@ -26,6 +28,7 @@ export default function NotificationsPage() {
             type: 'Circular',
             title: 'Staff Meeting',
             date: '2024-02-10',
+            time: '2:00 PM',
             content: 'Monthly staff meeting scheduled for next Monday at 2 PM.',
         },
         {
@@ -33,6 +36,7 @@ export default function NotificationsPage() {
             type: 'Notice',
             title: 'Parent-Teacher Meeting',
             date: '2024-02-25',
+            time: '3:00 PM',
             content: 'PTM for all classes will be conducted on February 25th.',
         },
     ]);
@@ -52,7 +56,7 @@ export default function NotificationsPage() {
                         hover:shadow-[0_0_25px_rgba(100,149,237,0.4)] text-white shadow-lg mb-5">
                         <CardHeader>
                             <CardTitle className="text-xl font-bold">{notification.title}</CardTitle>
-                            <CardDescription className="text-sm text-gray-400">{notification.date}</CardDescription>
+                            <CardDescription className="text-sm text-gray-400">{notification.date},{notification.time}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <p className="text-gray-300 mb-4">{notification.content}</p>
