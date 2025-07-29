@@ -54,9 +54,6 @@ const teacherRegisration = async(req , res)=>{
     });
 }
 
-
-
-
 const teacherLogin = async(req, res) => {
 
     const {email , password} = req.body;
@@ -73,21 +70,22 @@ const teacherLogin = async(req, res) => {
         return res.status(400).send("Invalid password");
     }           
 
-    const token = jwt.sign({ email:email}, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id:teacher._id}, process.env.JWT_SECRET, { expiresIn: '1h' });
   res.cookie("token", token, {
-  httpOnly: true,     // ✅ Prevent access from JavaScript
-  secure: false,      // ✅ Set to true **only on HTTPS** (localhost needs false)
-  sameSite: "Lax",    // ✅ Avoid CSRF, but allow redirects
-  path: "/",          // ✅ Must match when clearing the cookie
+  httpOnly: true,    
+  secure: false,     
+  sameSite: "Lax",    
+  path: "/",          
 });
-    res.status(200).json({
+
+res.status(200).json({
         message: "Teacher logged in successfully",
         token: token,
         teacher: {
             name: teacher.name,
             email: teacher.email,
-            department: teacher.department,
-            mobile: teacher.mobile
+            branch: teacher.branch,
+            id: teacher._id
         }
     });
 }
@@ -102,4 +100,25 @@ const teacherLogout = (req, res) => {
   res.status(200).json({ message: "Teacher logged out successfully" });
 };
 
-module.exports ={teacherLogin, teacherRegisration, teacherLogout}
+const teacherDetails = async (req, res)=>{
+ 
+    const teacherId = req.user.id; // Assuming the user ID is stored in req.user.id
+    const teacher = await Teacher.findById(teacherId).select("-password"); // Exclude password from the response
+    if (!teacher) {
+        return res.status(404).json({ message: "Teacher not found" });
+    }
+    res.status(200).json({
+        message: "Teacher details fetched successfully",
+        teacher: {
+            id: teacher._id,
+           firstname:teacher.firstname,
+           lastname:teacher.lastname,
+            email: teacher.email,
+            branch: teacher.branch
+        }
+    });         
+
+
+}
+
+module.exports ={teacherLogin, teacherRegisration, teacherLogout , teacherDetails};

@@ -5,7 +5,7 @@ import {
 import { Button } from "./button";
 import { ModeToggle } from "../../app/dashboard/mode-toggle";
 
-import { useState } from "react";
+import { useState,useEffect, } from "react";
 
 import {
   Dialog,
@@ -139,6 +139,47 @@ export function Header() {
     }
   };
 
+  const [teacher, setTeacher] = useState({
+  firstname: "",
+  lastname: "",
+  email: "",
+  branch: "",
+});
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
+  const fetchTeacher = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/teacher/getTeacher", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // ⬅️ REQUIRED for cookies
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+
+        console.error("Fetch failed:", errorData);
+        return;
+      }
+
+      const data = await response.json();
+      setTeacher(data.teacher);
+      console.log("Teacher data:", data);
+    } catch (error) {
+      console.error("Unhandled error in fetchTeacher:", error);
+    }
+  };
+
+  fetchTeacher();
+}, []);
+
+
+
+
+
   return (
     <header className="border-b p-4 lg:p-6 flex items-center justify-between relative">
       <div className="flex items-center justify-between w-full">
@@ -155,8 +196,10 @@ export function Header() {
         </button>
         <h1 className="text-2xl sm:text-2xl md:text-left font-semibold text-center w-full">
           <span className="text-muted-foreground">Welcome,</span>{" "}
-          {"Prof.Dummy Patel!"}
+          {teacher.firstname} {teacher.lastname}
         </h1>
+
+        
       </div>
       <div className="hidden lg:flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
         <div className="relative">
@@ -287,11 +330,11 @@ export function Header() {
               <div className="flex items-center gap-2">
                 <User className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
                 <p className="hidden sm:block text-sm lg:text-base">
-                  { "Dummy Patel"}
+                  { teacher.firstname} {teacher.lastname}
                 </p>
               </div>
               <p className="hidden lg:block text-sm text-muted-foreground">
-                {"Information Technology"}
+                {teacher.branch}
               </p>
             </Button>
           </DropdownMenuTrigger>
