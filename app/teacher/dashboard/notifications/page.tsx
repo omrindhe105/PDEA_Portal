@@ -13,8 +13,8 @@ interface Notification {
     content: string;
 }
 
-export default function NotificationsPage() {
-    const [notifications] = useState<Notification[]>([
+export default function noticesPage() {
+    const [notices] = useState<Notification[]>([
         {
             id: 1,
             type: 'Notice',
@@ -47,10 +47,10 @@ export default function NotificationsPage() {
         <Header />
         <div className='p-6'>
 
-            <h1 className="text-2xl font-bold mb-8 text-gray-100">Notifications</h1>
+            <h1 className="text-2xl font-bold mb-8 text-gray-100">Notices and Circulars</h1>
             <div className=" md:grid-cols-2 lg:grid-cols-3 gap-2 mb-3">
-                {notifications.map((notification) => (
-                    <Link key={notification.id} href={`/notifications/${notification.id}`}>
+                {notices.map((notification) => (
+                    <Link key={notification.id} href={`/notices/${notification.id}`}>
                         <Card className="cursor-pointer border border-white/10 backdrop-blur-xl bg-black/20
                         transition-all duration-300 ease-out
                         hover:shadow-[0_0_25px_rgba(100,149,237,0.4)] text-white shadow-lg mb-5">
