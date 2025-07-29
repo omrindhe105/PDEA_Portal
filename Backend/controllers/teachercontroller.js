@@ -74,7 +74,12 @@ const teacherLogin = async(req, res) => {
     }           
 
     const token = jwt.sign({ email:email}, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.cookie("token", token)
+  res.cookie("token", token, {
+  httpOnly: true,     // ✅ Prevent access from JavaScript
+  secure: false,      // ✅ Set to true **only on HTTPS** (localhost needs false)
+  sameSite: "Lax",    // ✅ Avoid CSRF, but allow redirects
+  path: "/",          // ✅ Must match when clearing the cookie
+});
     res.status(200).json({
         message: "Teacher logged in successfully",
         token: token,
@@ -88,12 +93,13 @@ const teacherLogin = async(req, res) => {
 }
 
 const teacherLogout = (req, res) => {
-    res.clearCookie("token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict"
-    });
-    res.status(200).json({ message: "Teacher logged out successfully" });
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,        // set to true only in production HTTPS
+    sameSite: "Lax",      // 'Lax' is more forgiving than 'Strict'
+    path: "/",            // MUST match the original cookie path
+  });
+  res.status(200).json({ message: "Teacher logged out successfully" });
 };
 
 module.exports ={teacherLogin, teacherRegisration, teacherLogout}

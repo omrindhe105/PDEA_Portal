@@ -4,7 +4,8 @@ import Link from "next/link";
 import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Redirect } from "@/components/ui/Redirect";
+// import { Redirect } from "@/components/ui/Redirect";
+// 
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
 // import { cookies } from "next/headers";
@@ -17,22 +18,19 @@ export default function Home() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     console.log("Submitted Data:", data);
     
-
-    
- 
-
-    try {
+     try {
       const response = await fetch("http://localhost:3001/teacher/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        },
+          
+        }, 
+        credentials: "include",
         body: JSON.stringify(data),
       });
 
@@ -46,13 +44,7 @@ export default function Home() {
         localStorage.setItem("token", result.token);
         // Redirect to the dashboard
 
- 
-        
-         
-
-
-        
-         window.location.href = "/teacher/dashboard";
+              window.location.href = "/teacher/dashboard";
       } else {
         alert("Login Failed");
       }
@@ -77,7 +69,7 @@ export default function Home() {
           <ImageGallery />
         </div>
         <div className="w-full md:w-1/2">
-          <Redirect />
+         ``
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
             <form
               className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl"

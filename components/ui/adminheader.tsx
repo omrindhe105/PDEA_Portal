@@ -1,20 +1,12 @@
 "use client";
 import {
-  Bell,
-  Search,
-  User,
-  LogOut,
-  UserCircle,
-  Check,
-  X,
-  AlertTriangle,
-  Menu,
-} from "lucide-react";
-// import { Input } from "@/components/ui/input"
+  Bell,User,LogOut,UserCircle,Check,X,AlertTriangle,Menu,} from "lucide-react";
+
 import { Button } from "./button";
 import { ModeToggle } from "../../app/dashboard/mode-toggle";
-// import { useRouter } from "next/navigation";
+
 import { useState } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -23,8 +15,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-// import { signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
+
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,8 +25,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../app/dashboard/ui/dropdown-menu";
+
 export function Header() {
-  const { data: session } = useSession();
+
   // const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState<{
@@ -138,7 +131,8 @@ export function Header() {
     });
     if (response.ok) {
       alert("Logout Successful");
-      localStorage.removeItem("token");
+      
+      
       window.location.href = "/teacher/login"; // Manual redirect
     } else {
       console.error("Logout failed");
@@ -161,7 +155,7 @@ export function Header() {
         </button>
         <h1 className="text-2xl sm:text-2xl md:text-left font-semibold text-center w-full">
           <span className="text-muted-foreground">Welcome,</span>{" "}
-          {session?.user?.name || "Prof.Dummy Patel!"}
+          {"Prof.Dummy Patel!"}
         </h1>
       </div>
       <div className="hidden lg:flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
@@ -293,11 +287,11 @@ export function Header() {
               <div className="flex items-center gap-2">
                 <User className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
                 <p className="hidden sm:block text-sm lg:text-base">
-                  {session?.user?.name || "Dummy Patel"}
+                  { "Dummy Patel"}
                 </p>
               </div>
               <p className="hidden lg:block text-sm text-muted-foreground">
-                {session?.user?.email || "Information Technology"}
+                {"Information Technology"}
               </p>
             </Button>
           </DropdownMenuTrigger>
