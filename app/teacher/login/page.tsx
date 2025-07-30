@@ -4,6 +4,7 @@ import Link from "next/link";
 import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { teacherLogin } from "@/app/lib/teacherLogin";
 
  
 import ImageGallery from "@/components/ui/image-gallery";
@@ -20,41 +21,19 @@ export default function Home() {
     handleSubmit,
   } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
-    console.log("Submitted Data:", data);
-    
-     try {
-      const response = await fetch("http://localhost:3001/teacher/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          
-        }, 
-        credentials: "include",
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-   
-         
-        const result = await response.json();
-
-        console.log("Login Result:", result.token);
-        console.log(alert("Login Successful"));
-        localStorage.setItem("token", result.token);
-        // Redirect to the dashboard
-
-              window.location.href = "/teacher/dashboard";
-      } else {
-        alert("Login Failed");
-      }
-    } catch (error) {
-      
-  console.log("Error during login:", error);
-      
-      
+   const onSubmit = async (data: FormData) => {
+    try {
+      const result = await teacherLogin(data.email,data.password);
+      if(result.ok){
+        window.location.href = "/teacher/dashboard"; // Redirect to dashboard on success
+      } // ✅ pass entire object
+      console.log("Login success:", result);
+    } catch (err) {
+      console.error("Login failed:", err);
     }
   };
+  
+  
 
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">

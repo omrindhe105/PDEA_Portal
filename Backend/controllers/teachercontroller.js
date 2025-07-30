@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const jwt = require('jsonwebtoken');
-
-
 
 // import  bcrypt from 'bcrypt';
 const bcrypt = require('bcrypt');
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
-// const dotenv = require("dotenv");
 
+const dotenv = require("dotenv");
+const jwt = require('jsonwebtoken');
 const { Teacher } = require('../models/studentSchema');
-// import { Teacher } from '../models/studentSchema';
 
+
+dotenv.config();    
 
 
 
@@ -22,6 +19,7 @@ const teacherRegisration = async(req , res)=>{
     email,
     password, 
     branch } = req.body;
+    console.log("Registration data:",email, password, branch);
 
     const existingTeacher = await Teacher.findOne({
         email: email

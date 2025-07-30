@@ -5,6 +5,7 @@ import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
+
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
 import * as React from "react"
@@ -34,7 +35,7 @@ export default function Home() {
 
 
      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-     const response = fetch('http://localhost:3000/teacher/register', {
+     const response = fetch('http://localhost:3001/teacher/register', {
 
       method: 'POST',
       headers: {
