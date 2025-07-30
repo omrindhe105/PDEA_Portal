@@ -1,5 +1,4 @@
 import LoginForm from "@/components/ui/LoginForm";
-import { Redirect } from "@/components/ui/Redirect";
 import ImageGallery from "@/components/ui/image-gallery";
 import LightRays from "@/components/ui/lightraysbg";
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
             <ImageGallery/>
           </div>
           <div className="w-full md:w-1/2 flex flex-col">
-            <Redirect/>
             <div className="flex-1 flex items-center justify-center">
               <LoginForm/>
             </div>
