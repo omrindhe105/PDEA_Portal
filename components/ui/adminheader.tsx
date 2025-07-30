@@ -1,12 +1,10 @@
 "use client";
-import {
-  Bell,User,LogOut,UserCircle,Check,X,AlertTriangle,Menu,} from "lucide-react";
-
-import { Button } from "./button";
-import { ModeToggle } from "../../app/dashboard/mode-toggle";
-
-import { useState,useEffect, } from "react";
-
+import { Bell, Search, User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
+// import { Input } from "@/components/ui/input"
+import { Button } from "./button"
+import { ModeToggle } from "../../app/dashboard/mode-toggle"
+import { useRouter } from "next/navigation"
+import { useEffect,useState } from "react"
 import {
   Dialog,
   DialogContent,

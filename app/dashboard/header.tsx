@@ -3,8 +3,6 @@ import { Bell, Search, User ,LogOut, UserCircle} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button"
 import { ModeToggle } from "./mode-toggle"
-// import { useRouter } from "next/navigation"
-// import { signOut } from "next-auth/react"
 
 import { 
   DropdownMenu, 

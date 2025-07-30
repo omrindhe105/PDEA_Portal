@@ -7,7 +7,7 @@ import {Checkbox } from "../../dashboard/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/app/dashboard/ui/input";
 import { Label } from "@/app/dashboard/ui/label";
-import { Clipboard, Check  } from 'lucide-react';
+import { Clipboard, Check,CircleAlert,ChevronsRight, ChevronsLeft   } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +25,8 @@ export default function Dashboard() {
   });
   const [classCode, setClassCode] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [presentCount, setPresentCount] = useState(0);
 
   const generateClassCode = () => {
     // Generate a random 6-digit code
@@ -60,6 +62,9 @@ export default function Dashboard() {
   };
 
   const handleSubmitAttendance = () => {
+    const count = Object.values(attendance).filter(Boolean).length;
+    setPresentCount(count);
+    setShowConfirmation(true);
     console.log('Submitting attendance:', attendance);
     // Here you would typically send this to your backend
   };
@@ -71,20 +76,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex font-figtree h-screen">
-      <div className="fixed inset-0 w-full h-screen bg-gradient-to-br from-[#0f0f0f] to-[#2a2a2a]">
-        <div className="absolute top-[40%] left-[40%] w-[280px] h-[280px] bg-white rounded-full opacity-20 blur-3xl" />
-        <div className="absolute bottom-[30%] right-[30%] w-[200px] h-[200px] bg-gray-300 rounded-full opacity-25 blur-3xl" />
-        <div className="absolute top-[20%] left-[20%] w-[160px] h-[160px] bg-slate-400 rounded-full opacity-15 blur-3xl" />
-        <div className="absolute bottom-[70%] right-[70%] w-[140px] h-[140px] bg-zinc-400 rounded-full opacity-10 blur-3xl" />
-        <div className="absolute top-[75%] left-[75%] w-[120px] h-[120px] bg-neutral-400 rounded-full opacity-30 blur-3xl" />
-        <div className="absolute bottom-[15%] left-[15%] w-[240px] h-[240px] bg-stone-400 rounded-full opacity-35 blur-3xl" />
-        <div className="absolute inset-0 bg-black/45 backdrop-blur-[10px]" />
-      </div>
-      
-      <div className="z-20">
-        <Sidebar />
-      </div>
-      <div className="flex-1 flex flex-col overflow-hidden relative z-10">
+      <div className="flex-1 flex flex-col overflow relative z-10">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
           <div className="flex flex-col min-h-full gap-6">
@@ -105,7 +97,7 @@ export default function Dashboard() {
                   aria-label={`${cls.name} class with ${cls.students} students, ${cls.attendance} attendance in room ${cls.room}`}
                   className={`cursor-pointer flex-col gap-3 rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
                     border border-white/10 backdrop-blur-xl bg-black/20
-                    transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-blue-500
+                    transition-all duration-300 ease-out
                     hover:shadow-[0_0_25px_rgba(100,149,237,0.4)]
                     ${selectedClass === cls.id ? 
                       'border-white/90 shadow-[0_0_30px_rgba(100,149,237,0.5)]' : 
@@ -247,6 +239,37 @@ export default function Dashboard() {
                       </button>
                     )}
                   </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+              <DialogContent className="sm:max-w-[425px] bg-[#1a1a1a] text-white border-gray-800">
+                <DialogHeader>
+                  <DialogTitle className="text-xl flex justify-start align-middle items-center font-semibold text-white">
+                    <CircleAlert className="mr-2" />
+                    Submit Attendance?
+                  </DialogTitle>
+                  
+                </DialogHeader>
+                <div className="py-4">
+                  <p className="text-white text-lg">
+                    You have marked <span className="font-bold">{presentCount}</span> students as present.
+                  </p>
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => setShowConfirmation(false)}
+                    className="px-4 py-2 flex bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                  >
+                    <ChevronsLeft className="inline-block mr-1" />Close 
+                  </button>
+                  <button
+                        onClick={handleSubmitAttendance}
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex transition-colors"
+                      >
+                        Submit <ChevronsRight className="inline-block ml-1" />
+                      </button>
                 </div>
               </DialogContent>
             </Dialog>

@@ -48,7 +48,6 @@ export default function Home() {
           <ImageGallery />
         </div>
         <div className="w-full md:w-1/2">
-         ``
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
             <form
               className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl"
