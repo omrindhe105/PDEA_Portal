@@ -1,6 +1,3 @@
-// import { BackgroundBeams } from "@/components/ui/background-beams-with-collision";
-// import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-// import LoginForm from "@/components/ui/LoginForm";
 "use client";
 import React from "react";
 import {
