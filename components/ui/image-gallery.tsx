@@ -1,15 +1,12 @@
 // import { BackgroundBeams } from "@/components/ui/background-beams-with-collision";
 // import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 // import LoginForm from "@/components/ui/LoginForm";
-// import { Redirect } from "@/components/ui/Redirect";
 "use client";
 import React from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";

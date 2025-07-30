@@ -4,11 +4,11 @@ import Link from "next/link";
 import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-// import { Redirect } from "@/components/ui/Redirect";
-// 
+
+ 
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
-// import { cookies } from "next/headers";
+
   type FormData = {
   
   email: string;
