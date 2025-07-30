@@ -3,12 +3,9 @@ import type React from "react"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-// import { signIn} from "next-auth/react"
-// import router, { Router, useRouter } from "next/router"
 import { useState} from "react"
 import Link from "next/link"
 export default function SignupFormDemo() {
-  // const session=useSession();
  
 
  const [formData, setFormData] = useState({
@@ -55,15 +52,6 @@ Enter Your Credentials to view your Profile and Latest Notifications</p>
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••" type="password" value={formData.password}  onChange={handlechange}/>
         </LabelInputContainer>
-
-
-        {/* <button
-          className="bg-[#2e2d31] relative group/btn w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          onClick={() => signIn()}
-        >
-          Sign In With Google &rarr;
-        </button> */}
-
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
         <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/teacher/login" >Click Here For Admin/Teacher Login!</Link></div>
       </form>
