@@ -4,7 +4,7 @@ import { Bell, Search, User, LogOut, UserCircle, Check, X, AlertTriangle, Menu }
 import { Button } from "./button"
 import { ModeToggle } from "../../app/dashboard/mode-toggle"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect,useState } from "react"
 import {
   Dialog,
   DialogContent,
