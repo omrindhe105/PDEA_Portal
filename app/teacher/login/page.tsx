@@ -28,8 +28,8 @@ export default function Home() {
         window.location.href = "/teacher/dashboard"; // Redirect to dashboard on success
       } // ✅ pass entire object
       console.log("Login success:", result);
-    } catch (err: unknown) {
-      console.error("Login failed:", err.message);
+    } catch (err) {
+      console.error("Login failed:", err);
     }
   };
   
