@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const jwt = require('jsonwebtoken');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const dotenv = require("dotenv");
  
 
@@ -26,6 +29,7 @@ console.log("Token from header:", tokenFromHeader);
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+    console.log("Decoded user:", req.user);
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });

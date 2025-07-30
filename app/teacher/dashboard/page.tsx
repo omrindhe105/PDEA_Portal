@@ -255,7 +255,7 @@ export default function Dashboard() {
               {selectedClass ? (
                 <div className="h-full flex flex-col">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                    <h2 className="text-lg md:text-xl font-semibold text-white">Today's Attendance - {classes.find(c => c.id === selectedClass)?.name}</h2>
+                    <h2 className="text-lg md:text-xl font-semibold text-white">Today&apos;s Attendance - {classes.find(c => c.id === selectedClass)?.name}</h2>
                     <button
                       onClick={handleClearAttendance}
                       aria-label="Clear all attendance records"

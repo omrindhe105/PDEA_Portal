@@ -3,9 +3,9 @@ import { Bell, Search, User ,LogOut, UserCircle} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button"
 import { ModeToggle } from "./mode-toggle"
-import { useRouter } from "next/navigation"
-import { signOut } from "next-auth/react"
-import { useSession } from "next-auth/react";
+// import { useRouter } from "next/navigation"
+// import { signOut } from "next-auth/react"
+
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -15,17 +15,25 @@ import {
   DropdownMenuTrigger 
 } from "./ui/dropdown-menu"
 export function Header() {
-  const { data: session } = useSession();
-  const router = useRouter()
-  const handleLogout = async () => {
-    await signOut({ 
-      redirect: true, 
-      callbackUrl: "/" 
-    })
-  }
+
+ const handleLogout = async () => {
+    const response = await fetch("http://localhost:3001/teacher/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      alert("Logout Successful");
+      localStorage.removeItem("token");
+      window.location.href = "/teacher/login"; // Manual redirect
+    } else {
+      console.error("Logout failed");
+    }
+  };
   return (
     <header className="border-b bg-background p-4 flex items-center justify-between">
-      <h1 className="text-2xl font-semibold">Welcome,{session?.user?.name || "Guest"}!</h1>
+      <h1 className="text-2xl font-semibold">Welcome,{ "Guest"}!</h1>
       <div className="flex items-center space-x-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />

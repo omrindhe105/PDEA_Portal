@@ -4,9 +4,11 @@ import Link from "next/link";
 import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Redirect } from "@/components/ui/Redirect";
+
+ 
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
+
   type FormData = {
   
   email: string;
@@ -16,33 +18,41 @@ export default function Home() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     console.log("Submitted Data:", data);
-
-    try {
-      const response = await fetch("http://localhost:3000/teacher/login", {
+    
+     try {
+      const response = await fetch("http://localhost:3001/teacher/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-        },
+          
+        }, 
+        credentials: "include",
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        alert("Login Successful");
-        response.json().then((data) => {
-          console.log("Response Data:", data);
-        });
-        window.location.href = "/teacher/dashboard"; // redirect to dashboard
+   
+         
+        const result = await response.json();
+
+        console.log("Login Result:", result.token);
+        console.log(alert("Login Successful"));
+        localStorage.setItem("token", result.token);
+        // Redirect to the dashboard
+
+              window.location.href = "/teacher/dashboard";
       } else {
         alert("Login Failed");
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred during login.");
+      
+  console.log("Error during login:", error);
+      
+      
     }
   };
 
@@ -59,7 +69,7 @@ export default function Home() {
           <ImageGallery />
         </div>
         <div className="w-full md:w-1/2">
-          <Redirect />
+         ``
           <div className="flex items-center align-middle justify-center overflow-hidden z-10">
             <form
               className="flex w-full p-7 items-center flex-col gap-3 py-5 rounded-2xl"

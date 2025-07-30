@@ -3,7 +3,7 @@ import type React from "react"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { signIn} from "next-auth/react"
+// import { signIn} from "next-auth/react"
 // import router, { Router, useRouter } from "next/router"
 import { useState} from "react"
 import Link from "next/link"
@@ -24,18 +24,10 @@ export default function SignupFormDemo() {
   };    
 
 
-
-
-
-
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(formData);
-    // Here you can handle the form submission, e.g., send data to an API
-    // For example, you can use fetch or axios to send a POST request with formData
-    // fetch('/api/signup', {
-    //   method: 'POST',
+   
   }
   return (
     <div className="w-full rounded-none md:rounded-2xl flex flex-col items-center md:p-8 shadow-input z-10 ">
@@ -65,12 +57,12 @@ Enter Your Credentials to view your Profile and Latest Notifications</p>
         </LabelInputContainer>
 
 
-        <button
+        {/* <button
           className="bg-[#2e2d31] relative group/btn w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           onClick={() => signIn()}
         >
           Sign In With Google &rarr;
-        </button>
+        </button> */}
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
         <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/teacher/login" >Click Here For Admin/Teacher Login!</Link></div>
