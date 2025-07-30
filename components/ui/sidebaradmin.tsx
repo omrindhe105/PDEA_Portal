@@ -1,27 +1,11 @@
-import { Home, Calendar, Megaphone, Bell, User, Menu, X, LogOut, PanelsTopLeft,UserCircle } from "lucide-react"
+import { Home, Calendar, Megaphone, Bell, User, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./button"
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "../../app/dashboard/ui/dropdown-menu"
-import { signOut } from "next-auth/react"
-
 export function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-    const handleLogout = async () => {
-      await signOut({ 
-        redirect: true, 
-        callbackUrl: "/" 
-      })
-    }
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -54,27 +38,27 @@ export function Sidebar() {
         isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
         "lg:translate-x-0 lg:static"
       )}>
-        <div className="flex text-xl font-semibold items-center mb-8">
-          <PanelsTopLeft className="mr-4" />Menu
+        <div className="flex items-center mb-8">
+          <h2 className="text-xl font-semibold ml-10">Menu</h2>
         </div>
       <nav className="space-y-8">
         <div>
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Main</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard">
+              <Link href="/">
                 <Home className="mr-3 h-5 w-5" />
                 Dashboard
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/timetable">
+              <Link href="/timetable">
                 <Calendar className="mr-3 h-5 w-5" />
                 Timetable
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notices">
+              <Link href="/Notices">
                 <Megaphone className="mr-3 h-5 w-5" />
                 Notices
               </Link>
@@ -85,23 +69,17 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Account</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notifications">
+              <Link href="/notifications">
                 <Bell className="mr-3 h-5 w-5" />
                 Notifications
               </Link>
             </Button>
-          <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/profile">
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link href="/profile">
                 <User className="mr-3 h-5 w-5" />
                 Profile
               </Link>
             </Button>
-        <Button onClick={handleLogout} variant="ghost" className="w-full justify-start">
-              {/* <Link href="/Notices"> */}
-                <LogOut className="mr-3 h-5 w-5" />
-                Logout
-              {/* </Link> */}
-        </Button>
           </div>
         </div>
       </nav>
@@ -109,4 +87,3 @@ export function Sidebar() {
     </>
   )
 }
-
