@@ -22,12 +22,20 @@ export default function Home() {
   } = useForm<FormData>();
 
    const onSubmit = async (data: FormData) => {
-    try {
+    try { 
       const result = await teacherLogin(data.email,data.password);
+      const data2 = result.json();
+      console.log("Login response data:", data2);
+
       if(result.ok){
+        alert("Login Successful");
         window.location.href = "/teacher/dashboard"; // Redirect to dashboard on success
+      } else {
+        alert("Login Failed");
+        console.error("Login failed with status:", result.status);
+       
       } // ✅ pass entire object
-      console.log("Login success:", result);
+    
     } catch (err) {
       console.error("Login failed:", err);
     }
