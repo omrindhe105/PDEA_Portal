@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import {Toaster} from "@/components/ui/sonner"
 
 import {
   DropdownMenu,
@@ -23,6 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../app/dashboard/ui/dropdown-menu";
+import { toast } from "sonner";
 
 export function Header() {
 
@@ -128,12 +130,25 @@ export function Header() {
       },
     });
     if (response.ok) {
-      alert("Logout Successful");
+      // <Toaster position="top-center" />
+      toast.success("Logged Out Successfully!", {
+          description: "Redirecting to login page...",
+          // position: "top-center",
+          // action: {
+          //   label: "Cancel",
+          //   // position: "top-center",
+          //   onClick: () => console.log("Cancel"),
+          // },
+        })
+      // alert("Logout Successful");
       
-      
-      window.location.href = "/teacher/login"; // Manual redirect
+      setTimeout(() => {
+      window.location.href = "/teacher/login";},3000); // Manual redirect
     } else {
       console.error("Logout failed");
+      toast.error("Logout failed", {
+        description: "Please try again",
+      });
     }
   };
 
@@ -144,7 +159,6 @@ export function Header() {
   branch: "",
 });
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(() => {
   const fetchTeacher = async () => {
     try {
@@ -153,7 +167,7 @@ useEffect(() => {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // ⬅️ REQUIRED for cookies
+        credentials: "include",
       });
 
       if (!response.ok) {

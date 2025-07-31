@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./provider";
 import { Analytics } from '@vercel/analytics/next';
-
+import { Toaster } from "@/components/ui/sonner"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -38,11 +38,15 @@ export default function RootLayout({
       <body
         className="font-figtree"
       >
+        
+        
        
         <Providers>
          {children}
+         
         </Providers>
         <Analytics />
+        <Toaster />
       </body>
     </html>
   );

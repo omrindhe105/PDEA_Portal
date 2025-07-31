@@ -46,19 +46,19 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Main</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/">
+              <Link href="/teacher/dashboard">
                 <Home className="mr-3 h-5 w-5" />
                 Dashboard
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/timetable">
+              <Link href="/teacher/dashboard/timetable">
                 <Calendar className="mr-3 h-5 w-5" />
                 Timetable
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/Notices">
+              <Link href="/teacher/dashboard/notices">
                 <Megaphone className="mr-3 h-5 w-5" />
                 Notices
               </Link>
@@ -69,13 +69,13 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Account</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/notifications">
+              <Link href="/teacher/dashboard/notifications">
                 <Bell className="mr-3 h-5 w-5" />
                 Notifications
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/profile">
+              <Link href="/teacher/dashboard/profile">
                 <User className="mr-3 h-5 w-5" />
                 Profile
               </Link>
