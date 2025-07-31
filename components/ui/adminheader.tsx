@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import {Toaster} from "@/components/ui/sonner"
+import { logoutUser } from "@/lib/logout";
 
 import {
   DropdownMenu,
@@ -92,6 +92,19 @@ export function Header() {
       studentName,
     });
   };
+  const handleLogout = async () => {
+    const success = await logoutUser();
+    if (success) {
+      toast.success("Logged Out Successfully!", {
+        description: "Redirecting to Login Page...",
+      });
+      setTimeout(() => {
+        window.location.href = "/teacher/login";
+      }, 1500);
+    } else {
+      toast.error("Logout failed");
+    }
+  };
 
   const handleConfirm = () => {
     if (confirmationDialog.notificationId) {
@@ -122,35 +135,35 @@ export function Header() {
     });
   };
 
-  const handleLogout = async () => {
-    const response = await fetch("http://localhost:3001/teacher/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      // <Toaster position="top-center" />
-      toast.success("Logged Out Successfully!", {
-          description: "Redirecting to login page...",
-          // position: "top-center",
-          // action: {
-          //   label: "Cancel",
-          //   // position: "top-center",
-          //   onClick: () => console.log("Cancel"),
-          // },
-        })
-      // alert("Logout Successful");
+  // const handleLogout = async () => {
+  //   const response = await fetch("http://localhost:3001/teacher/logout", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.ok) {
+  //     // <Toaster position="top-center" />
+  //     toast.success("Logged Out Successfully!", {
+  //         description: "Redirecting to login page...",
+  //         // position: "top-center",
+  //         // action: {
+  //         //   label: "Cancel",
+  //         //   // position: "top-center",
+  //         //   onClick: () => console.log("Cancel"),
+  //         // },
+  //       })
+  //     // alert("Logout Successful");
       
-      setTimeout(() => {
-      window.location.href = "/teacher/login";},3000); // Manual redirect
-    } else {
-      console.error("Logout failed");
-      toast.error("Logout failed", {
-        description: "Please try again",
-      });
-    }
-  };
+  //     setTimeout(() => {
+  //     window.location.href = "/teacher/login";},3000); // Manual redirect
+  //   } else {
+  //     console.error("Logout failed");
+  //     toast.error("Logout failed", {
+  //       description: "Please try again",
+  //     });
+  //   }
+  // };
 
   const [teacher, setTeacher] = useState({
   firstname: "",
