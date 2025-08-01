@@ -52,6 +52,11 @@ Enter Your Credentials to view your Profile and Latest Notifications</p>
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••" type="password" value={formData.password}  onChange={handlechange}/>
         </LabelInputContainer>
+        <input
+                className="bg-[#443379] text-lg text-white rounded-lg cursor-pointer hover:bg-black transition w-full h-10"
+                type="submit"
+                value="Login"
+              />
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-5 h-[1px] w-full" />
         <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/teacher/login" >Click Here For Admin/Teacher Login!</Link></div>
       </form>
