@@ -45,10 +45,10 @@ export default function TeacherProfile() {
     });
      
     const [profileData, setProfileData] = useState({
-        fullname:{
+      
             firstname: '',
             lastname: ''
-        },
+        ,
         email: '',
         phone: '',
         address: '',
