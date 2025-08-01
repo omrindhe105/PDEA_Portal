@@ -4,9 +4,9 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const dbConncction = require('./config/db');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
-
-
+dotenv.config()
 
 
 
@@ -17,7 +17,7 @@ const teacherRoutes = require("./routes/teacherRoutes");
 
 
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: process.env.CLIENT_URL, // Replace with your client URL
   credentials: true               
 }));
 app.use(cookieParser());
