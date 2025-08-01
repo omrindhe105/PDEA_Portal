@@ -75,7 +75,7 @@ export default function TeacherProfile() {
     }
   };
 
-  fetchProfile(); // ✅ Call async function here
+  fetchProfile(); 
 }, []);
 
    

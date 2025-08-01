@@ -3,7 +3,7 @@
 
 export const teacherLogin= async (email: string, password: string) =>  {
     try{
-        const response = await fetch('https://pdeaportal-4qhff.sevalla.app/teacher/login', {
+        const response = await fetch(`${process.env.API}/teacher/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
