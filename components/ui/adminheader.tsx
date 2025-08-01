@@ -1,9 +1,9 @@
 "use client";
-import { Bell, Search, User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
+import { Bell,  User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
 // import { Input } from "@/components/ui/input"
 import { Button } from "./button"
 import { ModeToggle } from "../../app/dashboard/mode-toggle"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import { useEffect,useState } from "react"
 import {
   Dialog,
@@ -192,7 +192,7 @@ useEffect(() => {
 
       const data = await response.json();
       setTeacher(data.teacher);
-      console.log("Teacher data:", data);
+      
     } catch (error) {
       console.error("Unhandled error in fetchTeacher:", error);
     }
