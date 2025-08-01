@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import { useState } from 'react';
+import { useState ,useEffect, use} from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/app/dashboard/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Header } from '@/components/ui/adminheader';
@@ -10,6 +11,11 @@ import { Textarea } from '@/app/dashboard/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Camera, Pencil, Save, Upload, UserCircle, Mail, BookOpen, GraduationCap, Clock, Phone, MapPin } from 'lucide-react';
+
+import { teacherProfile } from '@/app/lib/teacherProfile';          
+
+import { add } from 'date-fns'; 
+import { profile } from 'console';
 
 export default function TeacherProfile() {
     const [isEditing, setIsEditing] = useState(false);
@@ -37,32 +43,56 @@ export default function TeacherProfile() {
             language: 'English'
         }
     });
+     
+    const [profileData, setProfileData] = useState({
+        fullname:{
+            firstname: '',
+            lastname: ''
+        },
+        email: '',
+        phone: '',
+        address: '',
+        bio: '',
+        experience: '',
+        education: [{ degree: '', university: '', year: '' }],
+        achievements: [''],
+        preferences: {
+            theme: 'dark',
+            notifications: true, 
+        }           
+        })
+    
+    useEffect(() => {
+  const fetchProfile = async () => {
+    try {
+      const data = await teacherProfile();
+      console.log("Profile data fetched 3:", data);
+   
+       setProfileData(data.teacher);
+      
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    }
+  };
 
+  fetchProfile(); // ✅ Call async function here
+}, []);
+
+   
+
+    
+  
     const handleSave = () => {
         setIsEditing(false);
         // Here you would typically save to backend
         console.log('Saving profile:', teacherData);
-    };
+    }
 
     return (
         <div className="min-h-screen text-white">
             <Header />
             <div className='container mx-auto p-6'>
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                        My Profile
-                    </h1>
-                    <Button 
-                        onClick={() => setIsEditing(!isEditing)}
-                        className="bg-blue-600 hover:bg-blue-700"
-                    >
-                        {isEditing ? (
-                            <><Save className="w-4 h-4 mr-2" /> Save Changes</>
-                        ) : (
-                            <><Pencil className="w-4 h-4 mr-2" /> Edit Profile</>
-                        )}
-                    </Button>
-                </div>
+                
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/*Basic Info */}
@@ -71,7 +101,7 @@ export default function TeacherProfile() {
                             <div className="flex flex-col items-center text-center">
                                 <div className="relative group">
                                     <Avatar className="w-32 h-32 border-4 border-blue-600/20">
-                                        <AvatarImage src="/placeholder-avatar.jpg" alt={teacherData.name} />
+                                        <AvatarImage src="/placeholder-avatar.jpg" alt="profile-image" />
                                         <AvatarFallback>
                                             <UserCircle className="w-20 h-20" />
                                         </AvatarFallback>
@@ -89,12 +119,12 @@ export default function TeacherProfile() {
                                 <div className="mt-4 space-y-2">
                                     {isEditing ? (
                                         <Input
-                                            value={teacherData.name}
+                                            value={profileData.firstname}
                                             onChange={(e) => setTeacherData({...teacherData, name: e.target.value})}
                                             className="bg-gray-800 border-gray-700 text-center"
                                         />
                                     ) : (
-                                        <h2 className="text-2xl font-bold">{teacherData.name}</h2>
+                                        <h2 className="text-2xl font-bold">{}</h2>
                                     )}
                                     <div className="flex items-center justify-center gap-2 text-gray-400">
                                         <MapPin className="w-4 h-4" />
@@ -115,12 +145,12 @@ export default function TeacherProfile() {
                                         <Mail className="w-5 h-5 text-gray-400" />
                                         {isEditing ? (
                                             <Input
-                                                value={teacherData.email}
+                                                value={profileData.email}
                                                 onChange={(e) => setTeacherData({...teacherData, email: e.target.value})}
                                                 className="bg-gray-800 border-gray-700"
                                             />
                                         ) : (
-                                            <span>{teacherData.email}</span>
+                                            <span>{profileData.email}</span>
                                         )}
                                     </div>
                                     <div className="flex items-center gap-3">
