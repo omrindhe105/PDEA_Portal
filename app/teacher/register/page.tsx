@@ -35,7 +35,7 @@ export default function Home() {
 
 
      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-     const response = fetch('http://localhost:3001/teacher/register', {
+     const response = fetch('https://pdeaportal-4qhff.sevalla.app/teacher/register', {
 
       method: 'POST',
       headers: {
