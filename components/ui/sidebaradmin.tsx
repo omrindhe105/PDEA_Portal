@@ -1,46 +1,50 @@
-import { Home, Calendar, Megaphone, Bell, User, Menu, X, LogOut } from "lucide-react"
-import Link from "next/link"
-import { Button } from "./button"
+import {
+  Home,
+  Calendar,
+  Megaphone,
+  Bell,
+  User,
+  Menu,
+  X,
+  LogOut,
+} from "lucide-react";
+import Link from "next/link";
+import { Button } from "./button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { logoutUser } from "@/lib/logout";
 import { toast } from "sonner";
-// import { logoutUser } from "@/lib/logout";
-// import handleLogout from "@/components/ui/adminheader";
+
 export function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    
-    return () => window.removeEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
   const handleLogout = async () => {
     const success = await logoutUser();
     if (success) {
-            toast.success("Logged Out Successfully!", {
-          description: "Redirecting to Login Page...",
-          // position: "top-center",
-          // action: {
-          //   label: "Cancel",
-          //   // position: "top-center",
-          //   onClick: () => console.log("Cancel"),
-          // },
-        })
-      // console.log("User logged out successfully");
+      toast.success("Logged Out Successfully!", {
+        description: "Redirecting to Login Page...",
+      });
+
       setTimeout(() => {
-      window.location.href = "/teacher/login";
-    }, 1500);
-  } else {
-    toast.error("Logout failed");
-  }
-};
+        window.location.href = "/teacher/login";
+      }, 1500);
+    } else {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <>
@@ -57,63 +61,78 @@ export function Sidebar() {
         )}
       </button>
 
-      <aside className={cn(
-        "fixed inset-y-0 left-0 z-40 w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
-        isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
-        "lg:translate-x-0 lg:static"
-      )}>
+      <aside
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
+          isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
+          "lg:translate-x-0 lg:static"
+        )}
+      >
         <div className="flex items-center mb-8">
           <h2 className="text-xl font-semibold ml-10">Menu</h2>
         </div>
-      <nav className="space-y-8">
-        <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">Main</h3>
-          <div className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard">
-                <Home className="mr-3 h-5 w-5" />
-                Dashboard
-              </Link>
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/timetable">
-                <Calendar className="mr-3 h-5 w-5" />
-                Timetable
-              </Link>
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notices">
-                <Megaphone className="mr-3 h-5 w-5" />
-                Notices
-              </Link>
-            </Button>
+        <nav className="space-y-8">
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">
+              Main
+            </h3>
+            <div className="space-y-2">
+              <Button variant="ghost" className="w-full justify-start" asChild>
+                <Link href="/teacher/dashboard">
+                  <Home className="mr-3 h-5 w-5" />
+                  Dashboard
+                </Link>
+              </Button>
+              <Button variant="ghost" className="w-full justify-start" asChild>
+                <Link href="/teacher/dashboard/timetable">
+                  <Calendar className="mr-3 h-5 w-5" />
+                  Timetable
+                </Link>
+              </Button>
+              <Button variant="ghost" className="w-full justify-start" asChild>
+                <Link href="/teacher/dashboard/notices">
+                  <Megaphone className="mr-3 h-5 w-5" />
+                  Notices
+                </Link>
+              </Button>
+            </div>
           </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">Account</h3>
-          <div className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notifications">
-                <Bell className="mr-3 h-5 w-5" />
-                Notifications
-              </Link>
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/profile">
-                <User className="mr-3 h-5 w-5" />
-                Profile
-              </Link>
-            </Button>
-            <Button variant="ghost" onClick={handleLogout} className="w-full justify-start">
-              {/* <Link href="/teacher/dashboard/profile"> */}
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground mb-4">
+              Account
+            </h3>
+            <div className="space-y-2">
+              <Button variant="ghost" className="w-full justify-start" asChild>
+                <Link href="/teacher/dashboard/notifications">
+                  <Bell className="mr-3 h-5 w-5" />
+                  Notifications
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                onClick={() => setShowProfile(true)}
+                asChild
+              >
+                <Link href="/teacher/dashboard/profile">
+                  <User className="mr-3 h-5 w-5" />
+                  Profile
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleLogout}
+                className="w-full justify-start"
+              >
+                {/* <Link href="/teacher/dashboard/profile"> */}
                 <LogOut className="mr-3 h-5 w-5" />
                 Log out
-              {/* </Link> */}
-            </Button>
+                {/* </Link> */}
+              </Button>
+            </div>
           </div>
-        </div>
-      </nav>
-    </aside>
+        </nav>
+      </aside>
     </>
-  )
+  );
 }

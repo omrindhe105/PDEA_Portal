@@ -1,9 +1,9 @@
 "use client";
 import { Bell,  User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
-// import { Input } from "@/components/ui/input"
+
 import { Button } from "./button"
 import { ModeToggle } from "../../app/dashboard/mode-toggle"
-// import { useRouter } from "next/navigation"
+import {teacherProfile} from "@/app/lib/teacherProfile";
 import { useEffect,useState } from "react"
 import {
   Dialog,
@@ -173,33 +173,51 @@ export function Header() {
 });
 
 useEffect(() => {
-  const fetchTeacher = async () => {
-    try {
-      // http://localhost:3001/teacher/getTeacher
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/getTeacher`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        console.error("Fetch failed:", errorData);
-        return;
+   const fetcheTeacher = async()=>{
+     const data = await teacherProfile();
+     if (data) {
+        setTeacher({
+          firstname: data.teacher.firstname,
+          lastname: data.teacher.lastname,
+          email: data.teacher.email,
+          branch: data.teacher.branch,
+        });
+      }
+      else{
+        console.error("Failed to fetch teacher profile");
       }
 
-      const data = await response.json();
-      setTeacher(data.teacher);
-      
-    } catch (error) {
-      console.error("Unhandled error in fetchTeacher:", error);
-    }
-  };
+   }
 
-  fetchTeacher();
+   fetcheTeacher();
+   
+  // const fetchTeacher = async () => {
+  //   try {
+    
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/getTeacher`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include",
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+
+  //       console.error("Fetch failed:", errorData);
+  //       return;
+  //     }
+
+  //     const data = await response.json();
+  //     setTeacher(data.teacher);
+      
+  //   } catch (error) {
+  //     console.error("Unhandled error in fetchTeacher:", error);
+  //   }
+  // };
+
+  // fetchTeacher();
 }, []);
 
 
