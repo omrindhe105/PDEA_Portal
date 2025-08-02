@@ -16,12 +16,18 @@ export function Sidebar() {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     checkIfMobile();
     window.addEventListener('resize', checkIfMobile);
-    
+
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
   const handleLogout = async () => {
     const success = await logoutUser();
     if (success) {
@@ -53,7 +59,7 @@ export function Sidebar() {
     /> 
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background/10 backdrop-blur-lg border border-white/10"
+        className="lg:hidden fixed top-4 left-4 z-50 h-10 w-10 flex items-center justify-center rounded-xl bg-background/20 backdrop-blur-lg border border-white/10"
         aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
       >
         {isMobileMenuOpen ? (
@@ -77,19 +83,19 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Main</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard">
+              <Link href="/teacher/dashboard" onClick={handleLinkClick}>
                 <Home className="mr-3 h-5 w-5" />
                 Dashboard
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/timetable">
+              <Link href="/teacher/dashboard/timetable" onClick={handleLinkClick}>
                 <Calendar className="mr-3 h-5 w-5" />
                 Timetable
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notices">
+              <Link href="/teacher/dashboard/notices" onClick={handleLinkClick}>
                 <Megaphone className="mr-3 h-5 w-5" />
                 Notices
               </Link>
@@ -100,13 +106,13 @@ export function Sidebar() {
           <h3 className="text-sm font-medium text-muted-foreground mb-4">Account</h3>
           <div className="space-y-2">
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/notifications">
+              <Link href="/teacher/dashboard/notifications" onClick={handleLinkClick}>
                 <Bell className="mr-3 h-5 w-5" />
                 Notifications
               </Link>
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
-              <Link href="/teacher/dashboard/profile">
+              <Link href="/teacher/dashboard/profile" onClick={handleLinkClick}>
                 <User className="mr-3 h-5 w-5" />
                 Profile
               </Link>
