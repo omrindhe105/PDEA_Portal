@@ -176,7 +176,7 @@ useEffect(() => {
   const fetchTeacher = async () => {
     try {
       // http://localhost:3001/teacher/getTeacher
-      const response = await fetch(`${process.env.API}//teacher/getTeacher`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/getTeacher`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
