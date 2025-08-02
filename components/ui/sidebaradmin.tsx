@@ -1,10 +1,11 @@
-import { Home, Calendar, Megaphone, Bell, User, Menu, X, LogOut } from "lucide-react"
+import { Home, Calendar, Megaphone, Bell, User, Menu, X, LogOut, PanelsTopLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "./button"
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { logoutUser } from "@/lib/logout";
 import { toast } from "sonner";
+import { PagesProgressProvider as ProgressProvider } from '@bprogress/next';
 // import { logoutUser } from "@/lib/logout";
 // import handleLogout from "@/components/ui/adminheader";
 export function Sidebar() {
@@ -44,7 +45,12 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
+       <ProgressProvider
+      height="4px"
+      color="#0F13FF"
+      options={{ showSpinner: false }}
+      shallowRouting
+    /> 
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background/10 backdrop-blur-lg border border-white/10"
@@ -63,7 +69,8 @@ export function Sidebar() {
         "lg:translate-x-0 lg:static"
       )}>
         <div className="flex items-center mb-8">
-          <h2 className="text-xl font-semibold ml-10">Menu</h2>
+          <PanelsTopLeft className="h-6 w-6 text-white" />
+          <h2 className="text-xl font-semibold ml-5">Menu</h2>
         </div>
       <nav className="space-y-8">
         <div>
