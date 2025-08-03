@@ -219,7 +219,7 @@ useEffect(() => {
             <Menu className="h-6 w-6 text-white" />
           )}
         </button> */}
-        <h1 className="text-2xl sm:text-2xl md:text-left font-semibold text-center w-full">
+        <h1 className="text-2xl sm:text-2xl md:text-center lg:text-left font-semibold text-center w-full">
           <span className="text-muted-foreground">Welcome,</span>{" "}
           {teacher.firstname} {teacher.lastname}
         </h1>
