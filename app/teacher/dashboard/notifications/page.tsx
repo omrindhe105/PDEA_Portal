@@ -72,34 +72,34 @@ export default function NotificationsPage() {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleApproveClick(notification.id, notification.studentName)}
-                                    className="hidden sm:flex h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
+                                    className="h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
                                   >
-                                    Approve<Check className="h-4 w-4" />
+                                    <span className='hidden lg:flex'>Approve</span><Check className="h-4 w-4" />
                                   </Button>
-                                  <Button
+                                  {/* <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleApproveClick(notification.id, notification.studentName)}
-                                    className="lg:hidden h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
+                                    className="lg:hidden md:hidden h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
                                   >
                                     <Check className="h-4 w-4" />
-                                  </Button>
+                                  </Button> */}
                                   <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleDenyClick(notification.id, notification.studentName)}
-                                    className="hidden sm:flex h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
+                                    className="h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
                                   >
-                                    Deny<X className="h-4 w-4" />
+                                    <span className='hidden lg:flex'>Deny</span><X className="h-4 w-4" />
                                   </Button>
-                                  <Button
+                                  {/* <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleDenyClick(notification.id, notification.studentName)}
-                                    className="lg:hidden h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
+                                    className="lg:hidden md:hidden h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
                                   >
                                     <X className="h-4 w-4" />
-                                  </Button>
+                                  </Button> */}
                                 </div>
                               </div>
                             ))}
