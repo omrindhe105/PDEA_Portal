@@ -59,7 +59,7 @@ export function Sidebar() {
     /> 
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 h-10 w-10 flex items-center justify-center rounded-xl bg-background/20 backdrop-blur-lg border border-white/10"
+        className="lg:hidden fixed top-4 left-4 z-[999] h-10 w-10 flex items-center justify-center rounded-xl bg-background/20 backdrop-blur-lg border border-white/10"
         aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
       >
         {isMobileMenuOpen ? (
@@ -70,7 +70,7 @@ export function Sidebar() {
       </button>
 
       <aside className={cn(
-        "fixed inset-y-0 left-0 z-40 w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
+        "fixed inset-y-0 left-0 z-[60] w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
         isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
         "lg:translate-x-0 lg:static"
       )}>
