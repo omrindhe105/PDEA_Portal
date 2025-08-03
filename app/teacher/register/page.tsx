@@ -26,41 +26,38 @@ type FormData = {
 };
 
 export default function Home() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
   const [Branch, setBranch] = React.useState("Branch");
 
   const onSubmit = async (data: FormData) => {
-    const fullData = { ...data, branch: Branch };
+    try {
+      const fullData = { ...data, branch: Branch };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/teacher/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fullData),
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          alert("Registration Successful");
-          window.location.href = "/teacher/login";
-        } else {
-          alert("Registration Failed");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API}/teacher/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fullData),
         }
-      })
-      .catch((error) => {
-        console.error("Error during registration:", error);
-        alert("An error occurred during registration. Please try again.");
-      });
+      );
+
+      const resData = await response.json();
+
+      if (!response.ok) {
+        alert(resData.message || "Registration failed");
+        return;
+      }
+
+      alert(resData.message || "Registration successful");
+      window.location.href = "/teacher/login";
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
-  console.log(errors);
 
   return (
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
