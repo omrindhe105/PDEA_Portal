@@ -80,7 +80,7 @@ res.status(200).json({
         message: "Teacher logged in successfully",
         token: token,
         teacher: {
-            name: teacher.name,
+            name: `${teacher.firstname}`,
             email: teacher.email,
             branch: teacher.branch,
             id: teacher._id
