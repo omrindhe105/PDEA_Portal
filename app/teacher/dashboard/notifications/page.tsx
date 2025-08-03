@@ -64,25 +64,41 @@ export default function NotificationsPage() {
             <h1 className="text-2xl font-bold mb-5 text-gray-100">Notifications</h1>
             <div className="overflow-y-auto">
                             {notifications.map((notification) => (
-                              <div key={notification.id} className="p-5 rounded-lg mb-2 border-b hover:bg-gray-900/50 flex items-center justify-between">
-                                <p className='mr-1 font-semibold'>{notification.studentName}</p>
-                                <p className="text-lg flex-1">{notification.text}</p>
-                                <div className="flex items-center gap-10 ml-4">
+                              <div key={notification.id} className="p-5 rounded-lg mb-2 border hover:bg-gray-900/50 flex items-center justify-between">
+                                <p className='mr-1 font-semibold'>{notification.studentName} {notification.text}</p>
+                                {/* <p className="text-lg flex-1">{notification.text}</p> */}
+                                <div className="flex items-center gap-5 lg:gap-10 ml-4">
                                   <Button
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleApproveClick(notification.id, notification.studentName)}
-                                    className="h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
+                                    className="hidden sm:flex h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
                                   >
                                     Approve<Check className="h-4 w-4" />
                                   </Button>
                                   <Button
                                     variant="ghost"
                                     size="icon"
+                                    onClick={() => handleApproveClick(notification.id, notification.studentName)}
+                                    className="lg:hidden h-9 w-fit px-3 text-green-500 hover:text-green-700 bg-[#2A3147]"
+                                  >
+                                    <Check className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
                                     onClick={() => handleDenyClick(notification.id, notification.studentName)}
-                                    className="h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
+                                    className="hidden sm:flex h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
                                   >
                                     Deny<X className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => handleDenyClick(notification.id, notification.studentName)}
+                                    className="lg:hidden h-9 w-fit px-3 text-red-500 hover:text-red-700 bg-[#2A3147]"
+                                  >
+                                    <X className="h-4 w-4" />
                                   </Button>
                                 </div>
                               </div>
