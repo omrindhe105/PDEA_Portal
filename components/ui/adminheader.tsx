@@ -206,19 +206,19 @@ useEffect(() => {
 
 
   return (
-    <header className="border-b p-4 lg:p-6 flex items-center justify-between relative">
+    <header className="lg:relative lg:bg-transparent bg-[#0F131F] z-10 sticky top-0 border-b p-4 lg:p-6 flex items-center justify-between">
       <div className="flex items-center justify-between w-full">
-        <button
+        {/* <button
           onClick={() => setShowNotifications(!showNotifications)}
           className="lg:hidden z-50 p-2 rounded-lg bg-background/10 backdrop-blur-lg border border-white/10"
-          aria-label={showNotifications ? "Close menu" : "Open menu"}
+          aria-label={showNotifications ? "Close notifications" : "Open notifications"}
         >
           {showNotifications ? (
             <X className="h-6 w-6 text-white" />
           ) : (
             <Menu className="h-6 w-6 text-white" />
           )}
-        </button>
+        </button> */}
         <h1 className="text-2xl sm:text-2xl md:text-left font-semibold text-center w-full">
           <span className="text-muted-foreground">Welcome,</span>{" "}
           {teacher.firstname} {teacher.lastname}
