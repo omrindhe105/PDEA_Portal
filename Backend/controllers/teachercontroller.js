@@ -48,6 +48,7 @@ const teacherLogin = async (req, res) => {
   console.log("Email:", email);
 
   const teacher = await Teacher.findOne({ email: email });
+  console.log(teacher)
 
   if (!teacher) {
     return res.send("Teacher not found with this email");
@@ -67,6 +68,7 @@ const teacherLogin = async (req, res) => {
   sameSite: "none",
   path: "/",
 });
+  console.log(token)
 
   res.status(200).json({
     message: "Teacher logged in successfully",
