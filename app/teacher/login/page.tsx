@@ -5,8 +5,7 @@ import Aurora from  "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { teacherLogin } from "@/app/lib/teacherLogin";
-
- 
+import { useRouter } from 'next/navigation'
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
 
@@ -16,6 +15,8 @@ import { useForm } from "react-hook-form";
   password: string;
 };
 export default function Home() {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -29,7 +30,7 @@ export default function Home() {
 
       if(result.ok){
         alert("Login Successful");
-        window.location.href = "/teacher/dashboard"; // Redirect to dashboard on success
+        router.push("/teacher/dashboard"); // Redirect to dashboard on success
       } else {
         alert("Login Failed");
         console.error("Login failed with status:", result.status);

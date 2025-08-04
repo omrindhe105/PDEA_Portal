@@ -175,7 +175,7 @@ export function Header() {
 useEffect(() => {
   const fetchTeacher = async () => {
     try {
-      const response = await fetch("http://localhost:3001/teacher/getTeacher", {
+      const response = await fetch("https://pdeaportal-4qhff.sevalla.app/teacher/getTeacher", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -183,20 +183,12 @@ useEffect(() => {
         credentials: "include",
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-
-        console.error("Fetch failed:", errorData);
-        return;
-      }
-
-      const data = await response.json();
-      setTeacher(data.teacher);
       
-    } catch (error) {
-      console.error("Unhandled error in fetchTeacher:", error);
-    }
-  };
+  }
+  catch (error) {
+      console.error("Error fetching teacher profile:", error);      
+  }
+}
 
   fetchTeacher();
 }, []);
