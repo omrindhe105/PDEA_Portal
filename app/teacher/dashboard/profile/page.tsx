@@ -113,7 +113,7 @@ export default function TeacherProfile() {
   return (
     <div className="min-h-screen text-white">
       <Header />
-      <div className="mx-auto w-1/2 p-6">
+      <div className="mx-auto lg:w-1/2 md:w-3/4  w-full p-6">
         <div className="">
           {/*Basic Info */}
           <Card className="bg-gray-900/50 border-gray-800 lg:col-span-1">
@@ -139,7 +139,7 @@ export default function TeacherProfile() {
                 </div>
 
                 <div className="w-full flex justify-evenly items-center text-lg mt-6 space-y-5">
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                   <div className="flex items-center gap-3">
                     <UserCircle className="w-5 h-5 text-gray-400" />
                     <span>{`${profileData.firstname} ${profileData.lastname}`}</span>
