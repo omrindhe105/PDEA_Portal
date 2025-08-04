@@ -1,6 +1,7 @@
 export const teacherProfile = async () => {
   try {
-    const response = await fetch('https://pdeaportal-4qhff.sevalla.app/teacher/getTeacher', {
+    // https://pdeaportal-4qhff.sevalla.app/teacher/getTeacher
+    const response = await fetch(`${process.env.API}/teacher/getTeacher`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
