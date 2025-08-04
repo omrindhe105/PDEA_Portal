@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const jwt = require("jsonwebtoken");
 // eslint-disable-next-line @typescript-eslint/no-require-imports
