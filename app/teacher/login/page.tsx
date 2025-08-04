@@ -94,8 +94,9 @@ export default function Home() {
                 type="submit"
                 value="Login"
               />
-              <div className="text-center text-lg text-blue-500 font-figtree">
-                <Link href="/">Click Here For Student Login</Link>
+              <div className="text-center flex mt-5 flex-col gap-2 text-lg text-blue-500 font-figtree">
+                <Link href="/">Click Here To Go Back To Student Login</Link>
+                <Link href="/admin/login">Click Here For Admin Login</Link>
               </div>
             </form>
           </div>
