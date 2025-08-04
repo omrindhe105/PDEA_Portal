@@ -44,6 +44,7 @@ export default function Home() {
   
 
   return (
+    // </BackgroundBeamsWithCollision>
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
         colorStops={["#76ff67", "#B19EEF", "#5227FF"]}
@@ -90,8 +91,6 @@ export default function Home() {
         </div>
       </div>
     </div>
-
-    // </BackgroundBeamsWithCollision>
   );
 }
 const LabelInputContainer = ({

@@ -29,13 +29,12 @@ export default function Dashboard() {
   const [presentCount, setPresentCount] = useState(0);
 
   const generateClassCode = () => {
-    // Generate a random 6-digit code
+    // random 6-digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     setClassCode(code);
   };
 
   const handleAddClass = () => {
-    // Here you would typically save the class to your backend
     console.log('New class:', { ...newClass, code: classCode });
     setShowAddClass(false);
     setNewClass({ className: '', subject: '' });
@@ -66,7 +65,7 @@ export default function Dashboard() {
     setPresentCount(count);
     setShowConfirmation(true);
     console.log('Submitting attendance:', attendance);
-    // Here you would typically send this to your backend
+    // send to backend
   };
 
   const classes = [
@@ -76,7 +75,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex font-figtree h-screen">
-      <div className="flex-1 flex flex-col overflow relative z-10">
+      <div className="flex-1 z-50 flex flex-col overflow relative">
         <Header />
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
           <div className="flex flex-col min-h-full gap-6">

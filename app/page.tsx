@@ -12,7 +12,7 @@ export default function Home() {
           lightSpread={2.5}
           rayLength={2}
           followMouse={true}
-          mouseInfluence={0.1}
+          mouseInfluence={0.2}
           noiseAmount={0.1}
           distortion={0.09}
         />

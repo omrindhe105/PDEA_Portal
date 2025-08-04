@@ -38,12 +38,8 @@ export default function RootLayout({
       <body
         className="font-figtree"
       >
-        
-        
-       
         <Providers>
          {children}
-         
         </Providers>
         <Analytics />
         <Toaster />

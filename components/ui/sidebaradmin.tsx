@@ -26,11 +26,18 @@ export function Sidebar() {
       setIsMobile(window.innerWidth < 1024);
     };
 
+
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
 
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
   const handleLogout = async () => {
     const success = await logoutUser();
     if (success) {
@@ -48,10 +55,15 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile Menu Button */}
+       <ProgressProvider
+      height="4px"
+      color="#0F13FF"
+      options={{ showSpinner: false }}
+      shallowRouting
+    /> 
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background/10 backdrop-blur-lg border border-white/10"
+        className="lg:hidden fixed top-3 left-4 z-[999] h-10 w-10 flex items-center justify-center rounded-xl bg-background/20 backdrop-blur-lg border border-white/10"
         aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
       >
         {isMobileMenuOpen ? (
@@ -69,7 +81,8 @@ export function Sidebar() {
         )}
       >
         <div className="flex items-center mb-8">
-          <h2 className="text-xl font-semibold ml-10">Menu</h2>
+          <PanelsTopLeft className="h-6 w-6 text-white" />
+          <h2 className="text-xl font-semibold ml-5">Menu</h2>
         </div>
         <nav className="space-y-8">
           <div>

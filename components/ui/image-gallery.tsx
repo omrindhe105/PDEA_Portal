@@ -6,7 +6,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
+import Image from "next/legacy/image";
 export default function ImageGallery() {
   const plugin = React.useRef(
     Autoplay({ delay: 4000, stopOnInteraction: true })
@@ -20,7 +20,7 @@ plugins={[plugin.current]}
         {Array.from({ length: 3 }).map((_, index) => (
           <CarouselItem key={index}>
             <div className="rounded-3xl">
-              <Image width={580} height={400} objectFit="contain" src={`/pic${index + 1}.jpg`} alt={`college Pictures ${index + 1}`} />
+              <Image width={580} height={600} className="object-cover" src={`/pic${index + 1}.jpg`} alt={`college Pictures ${index + 1}`} />
             </div>
           </CarouselItem>
         ))}

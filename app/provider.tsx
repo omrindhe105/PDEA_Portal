@@ -1,6 +1,5 @@
 "use client";
-
-// import { SessionProvider } from "next-auth/react";
+import { ProgressProvider } from '@bprogress/next/app';
 import { ThemeProvider } from "next-themes";
 
 export function Providers({children}:{
@@ -8,9 +7,15 @@ export function Providers({children}:{
 }) {
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            
-                {children}
-           
+            <ProgressProvider 
+      height="4px"
+      color="#0F131F"
+      options={{ showSpinner: false }}
+    //   shallowRouting
+    >
+      {children}
+    </ProgressProvider>
+
         </ThemeProvider>
     )
 }

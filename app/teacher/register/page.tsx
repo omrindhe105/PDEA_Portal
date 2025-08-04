@@ -60,6 +60,7 @@ export default function Home() {
   };
 
   return (
+    // </BackgroundBeamsWithCollision>
     <div className="w-screen relative h-screen flex justify-center items-center align-middle">
       <Aurora
         colorStops={["#c94b4b", "#302b63", "#4b134f"]}
@@ -165,7 +166,7 @@ export default function Home() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
 
               <input
                 className="bg-[#443379] text-lg text-white rounded-lg cursor-pointer hover:bg-black transition w-full h-10"

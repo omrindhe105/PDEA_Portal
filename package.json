@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bprogress/next": "^3.2.12",
     "@huggingface/hub": "^1.0.1",
     "@huggingface/inference": "^3.3.2",
     "@prisma/client": "^6.12.0",
