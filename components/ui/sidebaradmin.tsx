@@ -7,6 +7,7 @@ import {
   Menu,
   X,
   LogOut,
+  PanelsTopLeft,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./button";
@@ -14,6 +15,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { logoutUser } from "@/lib/logout";
 import { toast } from "sonner";
+import { PagesProgressProvider as ProgressProvider } from "@bprogress/next";
 
 export function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -90,19 +92,19 @@ export function Sidebar() {
               Main
             </h3>
             <div className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start" asChild>
+              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
                 <Link href="/teacher/dashboard">
                   <Home className="mr-3 h-5 w-5" />
                   Dashboard
                 </Link>
               </Button>
-              <Button variant="ghost" className="w-full justify-start" asChild>
+              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
                 <Link href="/teacher/dashboard/timetable">
                   <Calendar className="mr-3 h-5 w-5" />
                   Timetable
                 </Link>
               </Button>
-              <Button variant="ghost" className="w-full justify-start" asChild>
+              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
                 <Link href="/teacher/dashboard/notices">
                   <Megaphone className="mr-3 h-5 w-5" />
                   Notices
@@ -115,7 +117,7 @@ export function Sidebar() {
               Account
             </h3>
             <div className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start" asChild>
+              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
                 <Link href="/teacher/dashboard/notifications">
                   <Bell className="mr-3 h-5 w-5" />
                   Notifications
@@ -125,6 +127,7 @@ export function Sidebar() {
                 variant="ghost"
                 className="w-full justify-start"
                 onClick={() => setShowProfile(true)}
+                
                 asChild
               >
                 <Link href="/teacher/dashboard/profile">

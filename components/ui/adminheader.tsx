@@ -1,10 +1,18 @@
 "use client";
-import { Bell,  User, LogOut, UserCircle, Check, X, AlertTriangle, Menu } from "lucide-react"
+import {
+  Bell,
+  User,
+  LogOut,
+  UserCircle,
+  Check,
+  X,
+  AlertTriangle,
+} from "lucide-react";
 
-import { Button } from "./button"
-import { ModeToggle } from "../../app/dashboard/mode-toggle"
-import {teacherProfile} from "@/app/lib/teacherProfile";
-import { useEffect,useState } from "react"
+import { Button } from "./button";
+import { ModeToggle } from "../../app/dashboard/mode-toggle";
+import { teacherProfile } from "@/app/lib/teacherProfile";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -27,7 +35,6 @@ import {
 import { toast } from "sonner";
 
 export function Header() {
-
   // const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState<{
@@ -154,7 +161,7 @@ export function Header() {
   //         // },
   //       })
   //     // alert("Logout Successful");
-      
+
   //     setTimeout(() => {
   //     window.location.href = "/teacher/login";},3000); // Manual redirect
   //   } else {
@@ -166,63 +173,57 @@ export function Header() {
   // };
 
   const [teacher, setTeacher] = useState({
-  firstname: "",
-  lastname: "",
-  email: "",
-  branch: "",
-});
+    firstname: "",
+    lastname: "",
+    email: "",
+    branch: "",
+  });
 
-useEffect(() => {
-   const fetcheTeacher = async()=>{
-     const data = await teacherProfile();
-     if (data) {
+  useEffect(() => {
+    const fetcheTeacher = async () => {
+      const data = await teacherProfile();
+      if (data) {
         setTeacher({
           firstname: data.teacher.firstname,
           lastname: data.teacher.lastname,
           email: data.teacher.email,
           branch: data.teacher.branch,
         });
-      }
-      else{
+      } else {
         console.error("Failed to fetch teacher profile");
       }
+    };
 
-   }
+    fetcheTeacher();
 
-   fetcheTeacher();
-   
-  // const fetchTeacher = async () => {
-  //   try {
-    
-  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/getTeacher`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       credentials: "include",
-  //     });
+    // const fetchTeacher = async () => {
+    //   try {
 
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
+    //     const response = await fetch(`${process.env.NEXT_PUBLIC_API}/teacher/getTeacher`, {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       credentials: "include",
+    //     });
 
-  //       console.error("Fetch failed:", errorData);
-  //       return;
-  //     }
+    //     if (!response.ok) {
+    //       const errorData = await response.json();
 
-  //     const data = await response.json();
-  //     setTeacher(data.teacher);
-      
-  //   } catch (error) {
-  //     console.error("Unhandled error in fetchTeacher:", error);
-  //   }
-  // };
+    //       console.error("Fetch failed:", errorData);
+    //       return;
+    //     }
 
-  // fetchTeacher();
-}, []);
+    //     const data = await response.json();
+    //     setTeacher(data.teacher);
 
+    //   } catch (error) {
+    //     console.error("Unhandled error in fetchTeacher:", error);
+    //   }
+    // };
 
-
-
+    // fetchTeacher();
+  }, []);
 
   return (
     <header className="lg:relative lg:bg-transparent bg-[#0F131F] z-10 sticky top-0 border-b p-4 lg:p-6 flex items-center justify-between">
@@ -242,8 +243,6 @@ useEffect(() => {
           <span className="text-muted-foreground">Welcome,</span>{" "}
           {teacher.firstname} {teacher.lastname}
         </h1>
-
-        
       </div>
       <div className="hidden lg:flex items-center gap-4 sm:gap-8 lg:gap-14 w-full sm:w-auto justify-end">
         <div className="relative">
@@ -374,7 +373,7 @@ useEffect(() => {
               <div className="flex items-center gap-2">
                 <User className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
                 <p className="hidden sm:block text-sm lg:text-base">
-                  { teacher.firstname} {teacher.lastname}
+                  {teacher.firstname} {teacher.lastname}
                 </p>
               </div>
               <p className="hidden lg:block text-sm text-muted-foreground">
