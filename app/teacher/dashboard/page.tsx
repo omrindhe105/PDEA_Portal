@@ -1,5 +1,5 @@
 "use client"
-import { Sidebar } from "@/components/ui/sidebaradmin"
+
 import { Header } from "@/components/ui/adminheader"
 import { CiCirclePlus } from "react-icons/ci";
 import { useState } from "react";

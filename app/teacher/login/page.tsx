@@ -1,7 +1,7 @@
 "use client";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import Aurora from  "@/components/ui/aurorabg";
+import Aurora from "@/components/ui/aurorabg";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { teacherLogin } from "@/app/lib/teacherLogin";
@@ -9,40 +9,33 @@ import { useRouter } from 'next/navigation'
 import ImageGallery from "@/components/ui/image-gallery";
 import { useForm } from "react-hook-form";
 
-  type FormData = {
-  
+type FormData = {
   email: string;
   password: string;
 };
 export default function Home() {
-  const router = useRouter()
+  const { register, handleSubmit } = useForm<FormData>();
+  const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<FormData>();
+  const onSubmit = async (data: FormData) => {
+    try {
+      const result = await teacherLogin(data.email, data.password); // result is already the parsed JSON
+      console.log("Login response data:", result);
 
-   const onSubmit = async (data: FormData) => {
-    try { 
-      const result = await teacherLogin(data.email,data.password);
-      const data2 = result.json();
-      console.log("Login response data:", data2);
-
-      if(result.ok){
+      // Check success using your API's response structure
+      if (result.message === "Teacher logged in successfully") {
         alert("Login Successful");
-        router.push("/teacher/dashboard"); // Redirect to dashboard on success
+        // window.location.href = "/teacher/dashboard";
+        router.push("/teacher/dashboard");
+        console.log(process.env.TEST_API); // Use this if you want to navigate without reloading the page
       } else {
-        alert("Login Failed");
-        console.error("Login failed with status:", result.status);
-       
-      } // ✅ pass entire object
-    
+        alert("Login Failed: " + result.message);
+      }
     } catch (err) {
       console.error("Login failed:", err);
+      alert("Login Error: " + err);
     }
   };
-  
-  
 
   return (
     // </BackgroundBeamsWithCollision>
@@ -66,17 +59,32 @@ export default function Home() {
               <p className="text-white text-center text-2xl">
                 Login as a Teacher at PDEA&apos;s Portal
               </p>
-              <p>Don&apos;t have an account as a Teacher? <Link className="text-blue-500" href="/teacher/register">Register here.</Link></p>
+              <p>
+                Don&apos;t have an account as a Teacher?{" "}
+                <Link className="text-blue-500" href="/teacher/register">
+                  Register here.
+                </Link>
+              </p>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
 
               <LabelInputContainer>
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" placeholder="projectmayhem@fc.com" type="email" {...register("email", { required: true })} />
+                <Input
+                  id="email"
+                  placeholder="projectmayhem@fc.com"
+                  type="email"
+                  {...register("email", { required: true })}
+                />
               </LabelInputContainer>
 
               <LabelInputContainer>
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" placeholder="••••••••" type="password" {...register("password", { required: true })} />
+                <Input
+                  id="password"
+                  placeholder="••••••••"
+                  type="password"
+                  {...register("password", { required: true })}
+                />
               </LabelInputContainer>
 
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
@@ -86,7 +94,9 @@ export default function Home() {
                 type="submit"
                 value="Login"
               />
-        <div className="text-center text-lg text-blue-500 font-figtree"><Link href="/" >Click Here For Student Login</Link></div>
+              <div className="text-center text-lg text-blue-500 font-figtree">
+                <Link href="/">Click Here For Student Login</Link>
+              </div>
             </form>
           </div>
         </div>
@@ -98,9 +108,12 @@ const LabelInputContainer = ({
   children,
   className,
 }: {
-  children: React.ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }) => {
-  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>
-}
-
+  return (
+    <div className={cn("flex flex-col space-y-2 w-full", className)}>
+      {children}
+    </div>
+  );
+};

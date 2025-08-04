@@ -1,27 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export const teacherLogin = async (email: string, password: string) => {
+  const TEST_API = process.env.TEST_API || "http://localhost:3001";
+  const NEXT_PUBLIC_SEVELLA_API = process.env.NEXT_PUBLIC_SEVELLA_API;
+  try {
+    const response = await fetch(`${NEXT_PUBLIC_SEVELLA_API}/teacher/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
+    });
+    console.log("Login response status:", response.status);
 
-
-
-export const teacherLogin= async (email: string, password: string) =>  {
-    try{
-        const response = await fetch('https://pdeaportal-4qhff.sevalla.app/teacher/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include', // Include cookies in the request
-            body: JSON.stringify({ email, password }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Login failed');
-        }
-
-        ;
-        return  response; // Return the user data or token
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Login failed:", errorData);
+      throw new Error(errorData.message || "Login failed");
     }
-    catch(error){
-        console.error("Error during login:", error);
-        throw new Error("An error occurred during login. Please try again.");
-    }
-    
-}
+
+    const data = await response.json(); // ✅ Properly parse JSON
+    return data;
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw new Error("An error occurred during login. Please try again.");
+  }
+};
