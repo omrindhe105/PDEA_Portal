@@ -28,7 +28,6 @@ export function Sidebar() {
       setIsMobile(window.innerWidth < 1024);
     };
 
-
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
 
@@ -57,12 +56,12 @@ export function Sidebar() {
 
   return (
     <>
-       <ProgressProvider
-      height="4px"
-      color="#0F13FF"
-      options={{ showSpinner: false }}
-      shallowRouting
-    /> 
+      <ProgressProvider
+        height="4px"
+        color="#0F13FF"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="lg:hidden fixed top-3 left-4 z-[999] h-10 w-10 flex items-center justify-center rounded-xl bg-background/20 backdrop-blur-lg border border-white/10"
@@ -82,7 +81,7 @@ export function Sidebar() {
           "lg:translate-x-0 lg:static"
         )}
       >
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-8 z-10">
           <PanelsTopLeft className="h-6 w-6 text-white" />
           <h2 className="text-xl font-semibold ml-5">Menu</h2>
         </div>
@@ -92,19 +91,34 @@ export function Sidebar() {
               Main
             </h3>
             <div className="space-y-2">
-              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
+              <Button
+                variant="ghost"
+                onClick={handleLinkClick}
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/teacher/dashboard">
                   <Home className="mr-3 h-5 w-5" />
                   Dashboard
                 </Link>
               </Button>
-              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
+              <Button
+                variant="ghost"
+                onClick={handleLinkClick}
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/teacher/dashboard/timetable">
                   <Calendar className="mr-3 h-5 w-5" />
                   Timetable
                 </Link>
               </Button>
-              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
+              <Button
+                variant="ghost"
+                onClick={handleLinkClick}
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/teacher/dashboard/notices">
                   <Megaphone className="mr-3 h-5 w-5" />
                   Notices
@@ -117,7 +131,12 @@ export function Sidebar() {
               Account
             </h3>
             <div className="space-y-2">
-              <Button variant="ghost" onClick={handleLinkClick} className="w-full justify-start" asChild>
+              <Button
+                variant="ghost"
+                onClick={handleLinkClick}
+                className="w-full justify-start"
+                asChild
+              >
                 <Link href="/teacher/dashboard/notifications">
                   <Bell className="mr-3 h-5 w-5" />
                   Notifications
@@ -127,7 +146,6 @@ export function Sidebar() {
                 variant="ghost"
                 className="w-full justify-start"
                 onClick={() => setShowProfile(true)}
-                
                 asChild
               >
                 <Link href="/teacher/dashboard/profile">
