@@ -62,11 +62,11 @@ const teacherLogin = async (req, res) => {
     expiresIn: "1h",
   });
   res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+});
 
   res.status(200).json({
     message: "Teacher logged in successfully",
