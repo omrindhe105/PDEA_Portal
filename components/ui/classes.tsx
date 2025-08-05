@@ -63,15 +63,15 @@ export default function AllClasses() {
                           >
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hidden md:block" />
                             <Input
-  type="search"
-  placeholder="Search Classes..."
-  className="pl-3 md:pl-10 w-full h-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-  style={{ minWidth: 0 }}
-  value={searchValue}
-  onChange={e => setSearchValue(e.target.value)}
-  autoComplete="off"
-  aria-label="Search Classes"
-/>
+                              type="search"
+                              placeholder="Search Classes..."
+                              className="pl-3 md:pl-10 w-full h-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              style={{ minWidth: 0 }}
+                              value={searchValue}
+                              onChange={e => setSearchValue(e.target.value)}
+                              autoComplete="off"
+                              aria-label="Search Classes"
+                            />
                           </div>
                         </div>
                       </div>
