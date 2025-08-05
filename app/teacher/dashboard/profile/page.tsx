@@ -154,11 +154,10 @@ export default function TeacherProfile() {
                   ) : (
                     <h2 className="text-2xl font-bold">{}</h2>
                   )}
-                  <div className="flex items-center justify-center gap-2 text-gray-400">
-                    <MapPin className="w-4 h-4" />
+                  <div className="flex items-center justify-center gap-2 text-bold text-white-400">
                     {isEditing ? (
                       <Input
-                        value={teacherData.address}
+                        value={profileData.firstname}
                         onChange={(e) =>
                           setTeacherData({
                             ...teacherData,
@@ -168,7 +167,9 @@ export default function TeacherProfile() {
                         className="bg-gray-800 border-gray-700"
                       />
                     ) : (
-                      <span>{teacherData.address}</span>
+                      <span className="text-xl">
+                        {profileData.firstname} {profileData.lastname}
+                      </span>
                     )}
                   </div>
                 </div>

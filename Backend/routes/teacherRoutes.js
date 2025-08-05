@@ -8,7 +8,7 @@ const auth = require("../middleware/auth");
 route.post("/register",teacherRegisration);
 route.post("/login",teacherLogin); 
 route.post("/logout", teacherLogout); 
-route.get("/getTeacher",auth, teacherDetails)
+route.get("/profile",auth, teacherDetails)
      
 
 
