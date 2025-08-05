@@ -1,6 +1,5 @@
 import {
   Home,
-  Calendar,
   Megaphone,
   Bell,
   User,
@@ -8,6 +7,7 @@ import {
   X,
   LogOut,
   PanelsTopLeft,
+  GraduationCap,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./button";
@@ -102,17 +102,17 @@ export function AdminSidebar() {
                   Dashboard
                 </Link>
               </Button>
-              {/* <Button
+              <Button
                 variant="ghost"
                 onClick={handleLinkClick}
                 className="w-full justify-start"
                 asChild
               >
-                <Link href="/teacher/dashboard/timetable">
-                  <Calendar className="mr-3 h-5 w-5" />
-                  Timetable
+                <Link href="/admin/dashboard/teachers">
+                  <GraduationCap className="mr-3 h-5 w-5" />
+                  Teachers
                 </Link>
-              </Button> */}
+              </Button>
               <Button
                 variant="ghost"
                 onClick={handleLinkClick}
