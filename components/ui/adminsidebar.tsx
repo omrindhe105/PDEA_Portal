@@ -97,7 +97,7 @@ export function AdminSidebar() {
                 className="w-full justify-start"
                 asChild
               >
-                <Link href="/teacher/dashboard">
+                <Link href="/admin/dashboard">
                   <Home className="mr-3 h-5 w-5" />
                   Dashboard
                 </Link>
@@ -137,7 +137,7 @@ export function AdminSidebar() {
                 className="w-full justify-start"
                 asChild
               >
-                <Link href="/teacher/dashboard/notifications">
+                <Link href="/admin/dashboard/notifications">
                   <Bell className="mr-3 h-5 w-5" />
                   Notifications
                 </Link>

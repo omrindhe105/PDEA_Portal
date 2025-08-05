@@ -41,13 +41,6 @@ export default function AdminDashboard() {
     <>
       <Header />
       <div className="flex w-full flex-col min-h-full gap-6 p-6">
-        <div className="flex justify-between">
-        <h1 className="text-2xl font-bold">All Classes</h1>
-        <div><div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-          <Input type="search" placeholder="Search Classes..." className="pl-10 w-64" />
-        </div></div>
-        </div>
         <AllClasses />
       </div>
     </>
