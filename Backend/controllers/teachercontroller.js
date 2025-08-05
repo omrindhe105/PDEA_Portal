@@ -45,40 +45,43 @@ const teacherRegisration = async (req, res) => {
 
 const teacherLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log("Email:", email);
 
-  const teacher = await Teacher.findOne({ email: email });
+  const teacher = await Teacher.findOne({ email });
 
   if (!teacher) {
-    return res.send("Teacher not found with this email");
+    return res.status(404).json({ message: "Teacher not found" });
   }
 
-  const ispasswordMatch = await bcrypt.compare(password, teacher.password);
-  if (!ispasswordMatch) {
-    return res.status(400).send("Invalid password");
+  const isMatch = await bcrypt.compare(password, teacher.password);
+  if (!isMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  const token = jwt.sign({ id: teacher._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { id: teacher._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "5m" }  // 🕔 Token valid for 5 minutes
+  );
+
   res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  path: "/",
-});
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    path: "/",
+  });
 
-  res.status(200).json({
+  return res.status(200).json({
     message: "Teacher logged in successfully",
-    token: token,
+    token,
     teacher: {
-      name: teacher.name,
+      id: teacher._id,
       email: teacher.email,
       branch: teacher.branch,
-      id: teacher._id,
+      name: `${teacher.firstname} ${teacher.lastname}`,
     },
   });
 };
+
 
 const teacherLogout = (req, res) => {
   res.clearCookie("token", {
