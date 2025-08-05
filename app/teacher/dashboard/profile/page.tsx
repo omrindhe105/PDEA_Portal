@@ -9,7 +9,7 @@ import {
   CardDescription,
 } from "@/app/dashboard/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Header } from "@/components/ui/adminheader";
+import { Header } from "@/components/ui/teacherheader";
 import { Button } from "@/app/dashboard/ui/button";
 import { Input } from "@/app/dashboard/ui/input";
 import { Label } from "@/app/dashboard/ui/label";

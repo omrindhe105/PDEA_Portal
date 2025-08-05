@@ -1,5 +1,4 @@
 "use client";
-import { Header } from "@/components/ui/adminheader";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { UserPlus } from "lucide-react";
@@ -8,6 +7,7 @@ import {
   Search
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { AdminHeader } from "@/components/ui/adminheader";
 export default function Teachers() {
     const [showSearch, setShowSearch] = useState(false);
       const [searchValue, setSearchValue] = useState("");
@@ -15,7 +15,7 @@ export default function Teachers() {
   return (
     <div className="h-full w-full">
     <div>
-      <Header/>
+      <AdminHeader/>
     </div>
     <div className="">
         <div className="lg:col-span-3 rounded-xl  p-4 md:p-6 flex justify-center flex-col">

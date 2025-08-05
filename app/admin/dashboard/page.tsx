@@ -1,11 +1,9 @@
 "use client"
 
-import { Header } from "@/components/ui/adminheader"
+import { AdminHeader } from "@/components/ui/adminheader"
 import AllClasses from "@/components/ui/classes";
 // import { CiCirclePlus } from "react-icons/ci";
 import { useState } from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input"
 // import {Checkbox } from "../../dashboard/ui/checkbox";
 // import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 // import { Input } from "@/app/dashboard/ui/input";
@@ -39,7 +37,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <Header />
+      <AdminHeader />
       <div className="flex w-full flex-col min-h-full gap-6 p-6">
         <AllClasses />
       </div>

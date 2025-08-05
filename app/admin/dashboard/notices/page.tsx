@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Header } from "@/components/ui/adminheader"
+import { AdminHeader } from "@/components/ui/adminheader"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/app/dashboard/ui/card";
 import Link  from "next/link";
 import { Button } from '@/components/ui/button';
@@ -46,7 +46,7 @@ export default function noticesPage() {
     return (
         
         <div className="">
-        <Header />
+        <AdminHeader />
         <div className='p-6'>
             <div className='flex align-middle justify-between'>
             <h1 className="text-2xl font-bold mb-8 text-gray-100">Notices and Circulars</h1>

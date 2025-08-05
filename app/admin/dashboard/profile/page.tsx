@@ -9,45 +9,17 @@ import {
   CardDescription,
 } from "@/app/dashboard/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Header } from "@/components/ui/adminheader";
+import { AdminHeader } from "@/components/ui/adminheader";
 import { Button } from "@/app/dashboard/ui/button";
-import { Input } from "@/app/dashboard/ui/input";
-import { Label } from "@/app/dashboard/ui/label";
-import { Textarea } from "@/app/dashboard/ui/textarea";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Camera,
-  Pencil,
-  Save,
-  Upload,
   UserCircle,
   Mail,
-  BookOpen,
-  GraduationCap,
-  Clock,
   Phone,
   MapPin,
   Cpu,
   LockKeyhole,
 } from "lucide-react";
-
 import { teacherProfile } from "@/app/lib/teacherProfile";
-
-import { add } from "date-fns";
-import { profile } from "console";
 
 export default function TeacherProfile() {
   // const [isEditing, setIsEditing] = useState(false);
@@ -91,7 +63,7 @@ export default function TeacherProfile() {
 
   return (
     <div className="min-h-screen text-white">
-      <Header />
+      <AdminHeader />
       <div className="mx-auto lg:w-1/2 md:w-3/4  w-full p-6">
         <div className="">
           {/*Basic Info */}
