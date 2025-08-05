@@ -6,6 +6,8 @@ import React, { useState } from "react";
     { id: "TE_IT", name: "TE IT", students: 28, attendance: "90%", room: "103" },
     { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
     { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
+    { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
+    
     
 
   ];
@@ -21,9 +23,9 @@ export default function AllClasses() {
   };
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   return (
-    <div className="w-screen">
-            <div className="flex flex-col">
-                <div className="flex gap-5 overflow-x-scroll">
+    <div className="w-full">
+            <div className="w-full flex flex-col">
+                <div className="flex gap-5 overflow-x-scroll pb-4 [scrollbar-width:1]">
               {classes.map((cls) => ( 
                 <div
                   key={cls.id}
@@ -37,13 +39,13 @@ export default function AllClasses() {
                   tabIndex={0}
                   aria-pressed={selectedClass === cls.id}
                   aria-label={`${cls.name} class with ${cls.students} students, ${cls.attendance} attendance in room ${cls.room}`}
-                  className={`min-w-80 cursor-pointer flex-col gap-3 rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
+                  className={`w-72 min-w-[300px] cursor-pointer flex-col gap-3 rounded-xl flex items-center justify-center text-white text-lg font-semibold p-4 md:p-6
                     border border-white/10 backdrop-blur-xl bg-black/20
                     transition-all duration-300 ease-out
-                    hover:shadow-[0_0_25px_rgba(100,149,237,0.4)]
+                    hover:ring-blue-400/50 hover:border-blue-400/70
                     ${selectedClass === cls.id ? 
-                      'border-white/90 shadow-[0_0_30px_rgba(100,149,237,0.5)]' : 
-                      'hover:border-blue-500/30'
+                      'ring-blue-400/50 border-blue-400/70' : 
+                      'hover:border-blue-400/70'
                     }`}
                 >
                   <p className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{cls.name}</p>
@@ -78,7 +80,8 @@ export default function AllClasses() {
                       Clear All
                     </button>
                   </div>
-                  <div className="flex-1 overflow-x-auto min-h-0">
+                  <div className="flex-1 min-h-0">
+                    <div className="overflow-x-auto">
                     <table className="w-full text-white">
                       <thead className="border-b border-gray-600">
                         <tr className="text-left">
@@ -120,6 +123,7 @@ export default function AllClasses() {
                       >
                         Submit Attendance
                       </button>
+                    </div>
                     </div>
                   </div>
                 </div>
