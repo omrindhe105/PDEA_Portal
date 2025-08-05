@@ -60,7 +60,7 @@ const teacherLogin = async (req, res) => {
   const token = jwt.sign(
     { id: teacher._id },
     process.env.JWT_SECRET,
-    { expiresIn: "5m" }  // 🕔 Token valid for 5 minutes
+
   );
 
   res.cookie("token", token, {

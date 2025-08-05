@@ -18,6 +18,7 @@ export const teacherProfile = async () => {
     }
 
     const data = await response.json();
+    console.log("Teacher profile data:", data);
 
     return data;
   } catch (error) {

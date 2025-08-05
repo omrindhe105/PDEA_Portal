@@ -1,27 +1,21 @@
 "use client";
-import { Bell, Search, User ,LogOut, UserCircle} from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "./ui/button"
-import { ModeToggle } from "./mode-toggle"
-
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "./ui/dropdown-menu"
+import { Bell, Search, User, LogOut, UserCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "./ui/button";
+import { ModeToggle } from "./mode-toggle";
+import { teacherLogout } from "../lib/teacherLogout";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 export function Header() {
-
- const handleLogout = async () => {
-    const response = await fetch("http://localhost:3001/teacher/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
+  const handleLogout = async () => {
+    const response = await teacherLogout();
+    if (response.message === "Logout Successful") {
       alert("Logout Successful");
       localStorage.removeItem("token");
       window.location.href = "/teacher/login"; // Manual redirect
@@ -31,7 +25,7 @@ export function Header() {
   };
   return (
     <header className="border-b bg-background p-4 flex items-center justify-between">
-      <h1 className="text-2xl font-semibold">Welcome,{ "Guest"}!</h1>
+      <h1 className="text-2xl font-semibold">Welcome,{"Guest"}!</h1>
       <div className="flex items-center space-x-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
@@ -41,12 +35,12 @@ export function Header() {
           <Bell className="h-5 w-5" />
         </Button>
         <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <User className="h-5 w-5" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <User className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
@@ -62,6 +56,5 @@ export function Header() {
         <ModeToggle />
       </div>
     </header>
-  )
+  );
 }
-
