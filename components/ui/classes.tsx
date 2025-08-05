@@ -2,17 +2,15 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-  const classes = [
+  const classesRaw = [
     { id: "SE_IT", name: "SE IT", students: 30, attendance: "80%", room: "101" },
     { id: "BE_IT", name: "BE IT", students: 28, attendance: "90%", room: "103" },
     { id: "TE_IT", name: "TE IT", students: 28, attendance: "90%", room: "103" },
     { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
     { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
     { id: "FE_IT", name: "FE IT", students: 28, attendance: "90%", room: "103" },
-    
-    
-
   ];
+  const classes = Array.from(new Map(classesRaw.map(cls => [cls.id, cls])).values());
     
 
 export default function AllClasses() {
@@ -25,6 +23,26 @@ export default function AllClasses() {
   };
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  const filteredClasses = React.useMemo(() => {
+    const query = searchValue.trim().toLowerCase();
+    if (!query) return classes;
+    let filtered = classes.filter(cls =>
+      cls.name.toLowerCase().includes(query)
+    );
+    filtered = filtered.sort((a, b) => {
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
+      if (aName === query && bName !== query) return -1;
+      if (bName === query && aName !== query) return 1;
+      if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
+      if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
+      return aName.localeCompare(bName);
+    });
+    return filtered;
+  }, [searchValue, classes]);
+
   return (
     <div className="w-full">
             <div className="w-full flex flex-col">
@@ -45,17 +63,24 @@ export default function AllClasses() {
                           >
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hidden md:block" />
                             <Input
-                              type="search"
-                              placeholder="Search Classes..."
-                              className="pl-3 md:pl-10 w-full h-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                              style={{ minWidth: 0 }}
-                            />
+  type="search"
+  placeholder="Search Classes..."
+  className="pl-3 md:pl-10 w-full h-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+  style={{ minWidth: 0 }}
+  value={searchValue}
+  onChange={e => setSearchValue(e.target.value)}
+  autoComplete="off"
+  aria-label="Search Classes"
+/>
                           </div>
                         </div>
                       </div>
                       </div>
                 <div className="flex gap-5 mt-5 overflow-x-scroll pb-4 [scrollbar-width:1]">
-              {classes.map((cls) => ( 
+              {filteredClasses.length === 0 ? (
+  <div className="text-white text-center w-full">No classes found.</div>
+) : (
+  filteredClasses.map((cls) => ( 
                 <div
                   key={cls.id}
                   onClick={() => handleClassClick(cls.id)}
@@ -94,7 +119,7 @@ export default function AllClasses() {
                   </div>
                 </div>
                 
-              ))}
+              )))}
               </div>
                           <div className="lg:col-span-3 bg-black/20 backdrop-blur-lg rounded-xl border border-white/10 min-h-[300px] p-4 md:p-6 flex justify-center flex-col">
               {selectedClass ? (
