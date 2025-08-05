@@ -131,7 +131,7 @@ export function AdminSidebar() {
               Account
             </h3>
             <div className="space-y-2">
-              <Button
+              {/* <Button
                 variant="ghost"
                 onClick={handleLinkClick}
                 className="w-full justify-start"
@@ -141,14 +141,14 @@ export function AdminSidebar() {
                   <Bell className="mr-3 h-5 w-5" />
                   Notifications
                 </Link>
-              </Button>
+              </Button> */}
               <Button
                 variant="ghost"
                 className="w-full justify-start"
                 onClick={() => { setShowProfile(true); handleLinkClick(); }}
                 asChild
               >
-                <Link href="/teacher/dashboard/profile">
+                <Link href="/admin/dashboard/profile">
                   <User className="mr-3 h-5 w-5" />
                   Profile
                 </Link>
