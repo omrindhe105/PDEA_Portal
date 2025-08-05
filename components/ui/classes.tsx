@@ -24,15 +24,35 @@ export default function AllClasses() {
     } 
   };
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
   return (
     <div className="w-full">
             <div className="w-full flex flex-col">
               <div className="flex justify-between">
                       <h1 className="text-2xl font-bold">All Classes</h1>
-                      <div><div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-                        <Input type="search" placeholder="Search Classes..." className="pl-10 w-64" />
-                      </div></div>
+                      <div>
+                        <div className="relative flex items-center">
+                          <button
+                            type="button"
+                            className="block md:hidden p-2 focus:outline-none"
+                            aria-label="Open search"
+                            onClick={() => setShowSearch((prev) => !prev)}
+                          >
+                            <Search className="text-muted-foreground" />
+                          </button>
+                          <div
+                            className={`transition-all duration-300 ease-in-out flex  ${showSearch ? 'w-40 px-' : 'w-0 px-0'} overflow-hidden md:w-64 md:px-1 md:block`}
+                          >
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hidden md:block" />
+                            <Input
+                              type="search"
+                              placeholder="Search Classes..."
+                              className="pl-3 md:pl-10 w-full h-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              style={{ minWidth: 0 }}
+                            />
+                          </div>
+                        </div>
+                      </div>
                       </div>
                 <div className="flex gap-5 mt-5 overflow-x-scroll pb-4 [scrollbar-width:1]">
               {classes.map((cls) => ( 
