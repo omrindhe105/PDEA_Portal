@@ -1,6 +1,6 @@
 // app/teacher/dashboard/layout.tsx
 "use client";
-import { Sidebar } from "@/components/ui/sidebaradmin"
+import { Sidebar } from "@/components/ui/teachersidebar"
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

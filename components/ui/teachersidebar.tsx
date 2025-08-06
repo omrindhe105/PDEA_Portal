@@ -76,7 +76,7 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
+          "fixed inset-y-0 left-0 z-[60] w-64 h-full border-r bg-background/10 backdrop-blur-lg p-6 transition-transform duration-200 ease-in-out",
           isMobile && !isMobileMenuOpen ? "-translate-x-full" : "translate-x-0",
           "lg:translate-x-0 lg:static"
         )}
@@ -145,7 +145,7 @@ export function Sidebar() {
               <Button
                 variant="ghost"
                 className="w-full justify-start"
-                onClick={() => setShowProfile(true)}
+                onClick={() => { setShowProfile(true); handleLinkClick(); }}
                 asChild
               >
                 <Link href="/teacher/dashboard/profile">
@@ -155,7 +155,7 @@ export function Sidebar() {
               </Button>
               <Button
                 variant="ghost"
-                onClick={handleLogout}
+                onClick={() => { handleLogout(); handleLinkClick(); }}
                 className="w-full justify-start"
               >
                 {/* <Link href="/teacher/dashboard/profile"> */}
