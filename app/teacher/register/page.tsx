@@ -34,7 +34,7 @@ export default function Home() {
       const fullData = { ...data, branch: Branch };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/teacher/register`,
+        `${process.env.NEXT_PUBLIC_SEVELLA_API}/teacher/register`,
         {
           method: "POST",
           headers: {
