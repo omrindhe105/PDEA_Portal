@@ -19,7 +19,10 @@ export const teacherLogin = async (email: string, password: string) => {
       throw new Error(errorData.message || "Login failed");
     }
 
-    const data = await response.json(); // ✅ Properly parse JSON
+    const data = await response.json();
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+    }
     return data;
   } catch (error) {
     console.error("Error during login:", error);

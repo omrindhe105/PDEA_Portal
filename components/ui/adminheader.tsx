@@ -9,7 +9,7 @@ import { Button } from "./button";
 import { ModeToggle } from "../../app/dashboard/mode-toggle";
 import { teacherProfile } from "@/app/lib/teacherProfile";
 import { useEffect, useState } from "react";
-import { logoutUser } from "@/lib/logout";
+import { teacherLogout } from "@/app/lib/teacherLogout";
 
 import {
   DropdownMenu,
@@ -35,10 +35,23 @@ export function AdminHeader() {
     notificationId: null,
     studentName: "",
   });
+    const [teacher, setTeacher] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    branch: "",
+  });
+
 
   const handleLogout = async () => {
-    const success = await logoutUser();
+    const success = await teacherLogout();
     if (success) {
+      setTeacher({
+        firstname: "",
+        lastname: "",
+        email: "",
+        branch: "",
+      });
       toast.success("Logged Out Successfully!", {
         description: "Redirecting to Login Page...",
       });
@@ -80,12 +93,6 @@ export function AdminHeader() {
   //   }
   // };
 
-  const [teacher, setTeacher] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    branch: "",
-  });
 
   useEffect(() => {
     const fetcheTeacher = async () => {

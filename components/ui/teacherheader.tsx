@@ -22,7 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { logoutUser } from "@/lib/logout";
+import { teacherLogout } from "@/app/lib/teacherLogout";
 
 import {
   DropdownMenu,
@@ -100,8 +100,14 @@ export function Header() {
     });
   };
   const handleLogout = async () => {
-    const success = await logoutUser();
+    const success = await teacherLogout();
     if (success) {
+      setTeacher({
+            firstname: "",
+            lastname: "",
+            email: "",
+            branch: "",
+      })
       toast.success("Logged Out Successfully!", {
         description: "Redirecting to Login Page...",
       });

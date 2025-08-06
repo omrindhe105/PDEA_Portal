@@ -23,7 +23,7 @@ export default function Home() {
       console.log("Login response data:", result);
 
       // Check success using your API's response structure
-      if (result.message === "Teacher logged in successfully") {
+      if (result.message === "Login successful.") {
         alert("Login Successful");
         // window.location.href = "/teacher/dashboard";
         router.push("/teacher/dashboard");
