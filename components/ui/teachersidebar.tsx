@@ -16,8 +16,10 @@ import { cn } from "@/lib/utils";
 import { logoutUser } from "@/lib/logout";
 import { toast } from "sonner";
 import { PagesProgressProvider as ProgressProvider } from "@bprogress/next";
+import { useRouter } from "next/navigation";
 
 export function Sidebar() {
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -47,7 +49,8 @@ export function Sidebar() {
       });
 
       setTimeout(() => {
-        window.location.href = "/teacher/login";
+        // window.location.href = "/teacher/login";
+        router.push("/teacher/login");
       }, 1500);
     } else {
       toast.error("Logout failed");

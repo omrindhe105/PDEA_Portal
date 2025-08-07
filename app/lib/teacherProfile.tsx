@@ -25,7 +25,7 @@ export const teacherProfile = async () => {
       throw new Error("Failed to fetch teacher profile");
     }
     const data = await response.json();
-    console.log("Teacher profile data:", data);
+    // console.log("Teacher profile data:", data);
 
     return data;
   } catch (error) {

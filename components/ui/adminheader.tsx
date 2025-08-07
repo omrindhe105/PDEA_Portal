@@ -20,9 +20,10 @@ import {
   DropdownMenuTrigger,
 } from "../../app/dashboard/ui/dropdown-menu";
 import { toast } from "sonner";
+import {useRouter} from "next/navigation";
 
 export function AdminHeader() {
-  // const router = useRouter();
+  const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState<{
     isOpen: boolean;
@@ -56,7 +57,9 @@ export function AdminHeader() {
         description: "Redirecting to Login Page...",
       });
       setTimeout(() => {
-        window.location.href = "/teacher/login";
+        router.push("/teacher/login")
+        // window.location.href = "/teacher/login";
+        router.push("/teacher/login");
       }, 1500);
     } else {
       toast.error("Logout failed");

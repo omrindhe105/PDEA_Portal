@@ -11,7 +11,7 @@ dotenv.config();
 
 const teacherRegisration = async (req, res) => {
   const { firstname, lastname, email, password, branch } = req.body;
-  console.log("Registration data:", email, password, branch);
+  // console.log("Registration data:", email, password, branch);
 
   const existingTeacher = await Teacher.findOne({
     email: email,
@@ -63,7 +63,7 @@ const teacherLogin = async (req, res) => {
     const token = jwt.sign({ id: teacher._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    console.log("token",token)
+    // console.log("token",token)
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -108,7 +108,7 @@ const teacherDetails = async (req, res) => {
   try {
     const teacherId = req.user._id;
     const teacher = await Teacher.findById(teacherId).select("-password");
-    console.log(teacher);
+    // console.log(teacher);
     if (!teacher) {
       return res.status(404).json({ message: "Teacher not found." });
     }
