@@ -11,7 +11,7 @@ export const teacherLogin = async (email: string, password: string) => {
       credentials: "include",
       body: JSON.stringify({ email, password }),
     });
-    console.log("Login response status:", response.status);
+    // console.log("Login response status:", response.status);
 
     if (!response.ok) {
       const errorData = await response.json();

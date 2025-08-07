@@ -23,7 +23,7 @@ export default function SignupFormDemo() {
 
 const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
    
   }
   return (

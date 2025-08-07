@@ -20,7 +20,7 @@ export default function Home() {
   const onSubmit = async (data: FormData) => {
     try {
       const result = await teacherLogin(data.email, data.password); // result is already the parsed JSON
-      console.log("Login response data:", result);
+      // console.log("Login response data:", result);
 
       // Check success using your API's response structure
       if (result.message === "Login successful.") {
