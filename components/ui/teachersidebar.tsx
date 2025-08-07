@@ -17,6 +17,8 @@ import { logoutUser } from "@/lib/logout";
 import { toast } from "sonner";
 import { PagesProgressProvider as ProgressProvider } from "@bprogress/next";
 import { useRouter } from "next/navigation";
+import { teacherLogout } from "@/app/lib/teacherLogout";
+
 
 export function Sidebar() {
   const router = useRouter();
@@ -42,12 +44,11 @@ export function Sidebar() {
     }
   };
   const handleLogout = async () => {
-    const success = await logoutUser();
+    const success = await teacherLogout();
     if (success) {
       toast.success("Logged Out Successfully!", {
         description: "Redirecting to Login Page...",
       });
-
       setTimeout(() => {
         // window.location.href = "/teacher/login";
         router.push("/teacher/login");
