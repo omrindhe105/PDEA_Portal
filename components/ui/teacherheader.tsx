@@ -32,10 +32,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../app/dashboard/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+
 export function Header() {
-  // const router = useRouter();
+  const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState<{
     isOpen: boolean;
@@ -112,7 +114,8 @@ export function Header() {
         description: "Redirecting to Login Page...",
       });
       setTimeout(() => {
-        window.location.href = "/teacher/login";
+        // window.location.href = "/teacher/login";
+        router.push("/teacher/login");
       }, 1500);
     } else {
       toast.error("Logout failed");
